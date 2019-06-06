@@ -1,0 +1,475 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApiFilters4Log</name>
+    </assembly>
+    <members>
+        <member name="T:WebApiFilters4Log.Action4LogFilterAttribute">
+            <summary>
+            Filtro para logar o inicio e o fim de execucao de uma acao utilizando o log4net
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.Action4LogFilterAttribute.TimeOutWarn">
+            <summary>
+            Tempo em segundos. Quando definido e se o tempo para o termino da execucao ultrapassa-lo o LogLevel será alterado para WARN ao registrar o fim da acao. -1 para desabilitar (padrao)
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.Action4LogFilterAttribute.MessageStartingAction">
+            <summary>
+            Mensagem utilizada no registro de log para o inicio da execucao de uma acao. Valor padrao: Starting Action
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.Action4LogFilterAttribute.MessageEndAction">
+            <summary>
+            Mensagem utilizada no registro de log para o fim da execucao de uma acao. Valor padrao: End Action
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.Action4LogFilterAttribute.ArgumentsLogLevel">
+            <summary>
+            LogLevel utilizado para registrar os argumentos de uma acao. Padrao "INFO"
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.Action4LogFilterAttribute.ArgumentsMessage">
+            <summary>
+            Mensagem de separacao do contexto e os argumentos. Padrao "ARGS" - Ex: {CONTEXTO} ARGS {ARGUMENTOS}
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.Action4LogFilterAttribute.MonitoredTypes">
+            <summary>
+            Lista de nome completo dos tipos a serem monitorados separados por ponto e virgula ';'. Use "*" para todos. Ex: "System.Int32;System.String"
+            </summary>
+        </member>
+        <member name="M:WebApiFilters4Log.Action4LogFilterAttribute.#ctor(System.String,WebApiFilters4Log.LogLevel,System.Int32)">
+            <summary>
+            Construtor para Action4LogFilter
+            </summary>
+            <param name="loggerName">Nome do Logger configurado no log4net</param>
+            <param name="logLevel">LogLevel utilizado para registrar o inicio e em caso de sucesso o fim da execucao de uma acao. Caso termine em excecao sera registrado como ERROR. Padrao=DEBUG</param>
+            <param name="timeOutWarn">Tempo em segundos. Quando definido e se o tempo para o termino da execucao ultrapassa-lo o LogLevel será alterado para WARN ao registrar o fim da acao. -1 para desabilitar (padrao)</param>
+        </member>
+        <member name="M:WebApiFilters4Log.Action4LogFilterAttribute.#ctor(System.String,WebApiFilters4Log.LogLevel)">
+            <summary>
+            Construtor para Action4LogFilter
+            </summary>
+            <param name="loggerName">Nome do Logger configurado no log4net</param>
+            <param name="logLevel">LogLevel utilizado para registrar o inicio e em caso de sucesso o fim da execucao de uma acao. Caso termine em excecao sera registrado como ERROR. Padrao=DEBUG</param>
+        </member>
+        <member name="M:WebApiFilters4Log.Action4LogFilterAttribute.#ctor(System.String)">
+            <summary>
+            Construtor para Action4LogFilter. Assume LogLevel.DEBUG
+            </summary>
+            <param name="loggerName">Nome do Logger configurado no log4net</param>
+        </member>
+        <member name="M:WebApiFilters4Log.Action4LogFilterAttribute.#ctor">
+            <summary>
+            Construtor para Action4LogFilter. Assume LoggerName=CONTROLLER.ACTION e LogLevel.DEBUG
+            </summary>
+        </member>
+        <member name="M:WebApiFilters4Log.Action4LogFilterAttribute.OnActionExecutingAsync(System.Web.Http.Controllers.HttpActionContext,System.Threading.CancellationToken)">
+            <summary>
+            OnActionExecutingAsync executado antes da action
+            </summary>
+            <param name="actionContext">Instancia de HttpActionContext</param>
+            <param name="cancellationToken">Instancia de CancellationToken</param>
+            <returns>Task</returns>
+        </member>
+        <member name="M:WebApiFilters4Log.Action4LogFilterAttribute.OnActionExecutedAsync(System.Web.Http.Filters.HttpActionExecutedContext,System.Threading.CancellationToken)">
+            <summary>
+            OnActionExecutedAsync executado apos a action
+            </summary>
+            <param name="actionExecutedContext">Instancia de HttpActionExecutedContext</param>
+            <param name="cancellationToken">Instancia de CancellationToken</param>
+            <returns>Task</returns>
+        </member>
+        <member name="T:WebApiFilters4Log.Arguments4LogFilterAttribute">
+            <summary>
+            Filtro para logar os argumentos de uma acao utilizando o log4net
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.Arguments4LogFilterAttribute.ArgumentsLogLevel">
+            <summary>
+            LogLevel utilizado para registrar os argumentos de uma acao. Padrao "INFO"
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.Arguments4LogFilterAttribute.ArgumentsMessage">
+            <summary>
+            Mensagem de separacao do contexto e os argumentos. Padrao "ARGS" - Ex: {CONTEXTO} ARGS {ARGUMENTOS}
+            </summary>
+        </member>
+        <member name="M:WebApiFilters4Log.Arguments4LogFilterAttribute.#ctor(System.String,System.String[])">
+            <summary>
+            Construtor do filtro utilizado para logar os argumentos
+            </summary>
+            <param name="loggerName">Nome do Logger configurado no log4net</param>
+            <param name="typesMonitored">Nome completo dos tipos a serem monitorados. Use "*" para todos</param>
+        </member>
+        <member name="M:WebApiFilters4Log.Arguments4LogFilterAttribute.OnActionExecutingAsync(System.Web.Http.Controllers.HttpActionContext,System.Threading.CancellationToken)">
+            <summary>
+            OnActionExecutingAsync executado antes da action
+            </summary>
+            <param name="actionContext">Instancia de HttpActionContext</param>
+            <param name="cancellationToken">Instancia de CancellationToken</param>
+            <returns>Task</returns>
+        </member>
+        <member name="T:WebApiFilters4Log.CommonException">
+            <summary>
+            Excecao padrao
+            </summary>
+        </member>
+        <member name="M:WebApiFilters4Log.CommonException.#ctor(System.String,System.Guid,System.Exception)">
+            <summary>
+            Construtor para uma nova instância de CommonException
+            </summary>
+            <param name="message">Mensagem da exceção</param>
+            <param name="id">Identificador da exceção</param>
+            <param name="innerException">Exceção capturada</param>
+        </member>
+        <member name="F:WebApiFilters4Log.CommonException.Id">
+            <summary>
+            Identificador global da exceção
+            </summary>
+        </member>
+        <member name="F:WebApiFilters4Log.CommonException.DateTimeError">
+            <summary>
+            Data e hora da exceção
+            </summary>
+        </member>
+        <member name="T:WebApiFilters4Log.ControllerException">
+            <summary>
+            Responsavel por capturar informacoes do HttpActionContext
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.ControllerException.ContextId">
+            <summary>
+            Id do contexto da requisicao
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.ControllerException.MachineName">
+            <summary>
+            Nome da maquina que gerou a excecao
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.ControllerException.Controller">
+            <summary>
+            Nome do controller que gerou a excecao
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.ControllerException.Action">
+            <summary>
+            Nome da action que gerou a excecao
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.ControllerException.PathAndQuery">
+            <summary>
+            URL e parametros da requisicao
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.ControllerException.User">
+            <summary>
+            Usuario que realizou a requisicao
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.ControllerException.Arguments">
+            <summary>
+            Argumentos passados na requisicao
+            </summary>
+        </member>
+        <member name="M:WebApiFilters4Log.ControllerException.#ctor(System.Web.Http.Controllers.HttpActionContext,System.Exception)">
+            <summary>
+            Construtor utilizado para capturar informacoes relevantes do HttpActionContext
+            </summary>
+            <param name="actionContext">Instancia de HttpActionContext corrente</param>
+            <param name="innerException">Excecao capturada</param>
+        </member>
+        <member name="T:WebApiFilters4Log.Exception4LogFilterAttribute">
+            <summary>
+            Filtro para logar excecoes utilizando o log4net e tratar o resultado adequadamente
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.Exception4LogFilterAttribute.DebugKey">
+            <summary>
+            Define uma chave de confianca para liberar acesso ao resultado com detalhes da excecao. Caso nao informado utilize o valor "true" para o cabecalho "X-DebugError"
+            </summary>
+        </member>
+        <member name="P:WebApiFilters4Log.Exception4LogFilterAttribute.HeaderName">
+            <summary>
+            Define um nome para o cabecalho responsavel por liberar acesso ao resultado com detalhes da excecao. Caso nao informado sera utilizado "X-DebugError"
+            </summary>
+        </member>
+        <member name="M:WebApiFilters4Log.Exception4LogFilterAttribute.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Construtor do filtro utilizado para logar excecoes e tratar o resultado adequadamente
+            </summary>
+            <param name="loggerName">Nome do Logger configurado no log4net</param>
+            <param name="debugKey">Define uma chave de confianca para liberar acesso ao resultado com detalhes da excecao. Caso nao informado utilize o valor "true" para o cabecalho "X-DebugError"</param>
+            <param name="headerName">Define um nome para o cabecalho responsavel por liberar acesso ao resultado com detalhes da excecao. Caso nao informado sera utilizado o nome "X-DebugError"</param>
+        </member>
+        <member name="M:WebApiFilters4Log.Exception4LogFilterAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Construtor do filtro utilizado para logar excecoes e tratar o resultado adequadamente
+            </summary>
+            <param name="loggerName">Nome do Logger configurado no log4net</param>
+            <param name="debugKey">Define uma chave de confianca para liberar acesso ao resultado com detalhes da excecao. Caso nao informado utilize o valor "true" para o cabecalho "X-DebugError"</param>
+        </member>
+        <member name="M:WebApiFilters4Log.Exception4LogFilterAttribute.#ctor(System.String)">
+            <summary>
+            Construtor do filtro utilizado para logar excecoes e tratar o resultado adequadamente
+            </summary>
+            <param name="loggerName">Nome do Logger configurado no log4net</param>
+        </member>
+        <member name="M:WebApiFilters4Log.Exception4LogFilterAttribute.OnExceptionAsync(System.Web.Http.Filters.HttpActionExecutedContext,System.Threading.CancellationToken)">
+            <summary>
+            OnExceptionAsync executado quando uma excecao for lancada na action
+            </summary>
+            <param name="actionExecutedContext">Instancia de HttpActionExecutedContext</param>
+            <param name="cancellationToken">Instancia de CancellationToken</param>
+            <returns>Task</returns>
+        </member>
+        <member name="T:WebApiFilters4Log.Extensions4Log">
+            <summary>
+            Extensoes
+            </summary>
+        </member>
+        <member name="M:WebApiFilters4Log.Extensions4Log.GetLogContext(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Extensao para extrair do HttpActionContext um dicionario com os detalhes da acao
+            </summary>
+            <param name="actionContext">HttpActionDescriptor</param>
+            <returns>dicionario com os detalhes da acao</returns>
+        </member>
+        <member name="M:WebApiFilters4Log.Extensions4Log.GetLogContext(System.Web.Http.Controllers.HttpActionContext,System.Boolean)">
+            <summary>
+            Extensao para extrair do HttpActionContext um dicionario com os detalhes da acao
+            </summary>
+            <param name="actionContext">HttpActionDescriptor</param>
+            <param name="onlyContextId">true para retornar somente o id do contexto e false para retornar tudo</param>
+            <returns>dicionario com os detalhes da acao</returns>
+        </member>
+        <member name="M:WebApiFilters4Log.Extensions4Log.ContextHasPersisted(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Verifica se o contexto ja foi persistido
+            </summary>
+            <param name="actionContext">HttpActionDescriptor</param>
+            <returns>true=persistido; false=nao persistido</returns>
+        </member>
+        <member name="M:WebApiFilters4Log.Extensions4Log.SetContextAsPersisted(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Define o contexto como persistido
+            </summary>
+            <param name="actionContext">HttpActionDescriptor</param>
+        </member>
+        <member name="M:WebApiFilters4Log.Extensions4Log.GetLogger(System.Web.Http.Controllers.HttpActionDescriptor)">
+            <summary>
+            Extensao para obter uma instancia de log4net.ILog
+            </summary>
+            <param name="actionDescriptor">HttpActionDescriptor</param>
+            <returns>Retorna um logger correspondente ao nome completo da acao</returns>
+        </member>
+        <member name="M:WebApiFilters4Log.Extensions4Log.GetFullActionName(System.Web.Http.Controllers.HttpActionDescriptor)">
+            <summary>
+            Extensao para obter o nome completo da acao
+            </summary>
+            <param name="actionDescriptor">HttpActionDescriptor</param>
+            <returns>Retorna o nome completo da acao. Ex: Controller.Action</returns>
+        </member>
+        <member name="M:WebApiFilters4Log.Extensions4Log.GetActionArguments(System.Collections.Generic.IDictionary{System.String,System.Object},System.String[])">
+            <summary>
+            Extensao para obter um dicionario contendo os argumentos passados para uma acao
+            </summary>
+            <param name="arguments">IDictionary</param>
+            <param name="types">Nome completo dos tipos que serao retornados</param>
+            <returns>Retorna um dicionario contendo os argumentos serializados em json</returns>
+        </member>
+        <member name="M:WebApiFilters4Log.Extensions4Log.GetAdditionalInfo(WebApiFilters4Log.ControllerException)">
+            <summary>
+            Extensao para obter um dicionario contendo detalhes da excecao
+            </summary>
+            <param name="ce">ControllerException</param>
+            <returns>Retorna um dicionario contendo os detalhes da excecao</returns>
+        </member>
+        <member name="M:WebApiFilters4Log.Extensions4Log.ToDynamicObject(System.Exception,System.Guid)">
+            <summary>
+            Extensao para obter um objeto dinamico utilizando como base a excecao
+            </summary>
+            <param name="ex">Exception</param>
+            <param name="errorId">Id da excecao</param>
+            <returns>Retorna um objeto dinamico com os detalhes da excecao</returns>
+        </member>
+        <member name="M:WebApiFilters4Log.Extensions4Log.ToJson(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Extensao para converter um dicionario para json
+            </summary>
+            <param name="dic">Instancia de Dictionary</param>
+            <returns>json</returns>
+        </member>
+        <member name="M:WebApiFilters4Log.Extensions4Log.IgnoreFilters(System.Web.Http.Controllers.HttpActionDescriptor)">
+            <summary>
+            Extensao para verificar se existe o atributo IgnoreFilters associado a controller ou a action
+            </summary>
+            <param name="actionDescriptor">HttpActionDescriptor</param>
+            <returns></returns>
+        </member>
+        <member name="T:WebApiFilters4Log.IgnoreLogAttribute">
+            <summary>
+            Atributo para ignorar o log para os filtros do WebApiFilters4Log
+            </summary>
+        </member>
+        <member name="T:WebApiFilters4Log.JsonContent">
+            <summary>
+            Customizacao de HttpContent
+            </summary>
+        </member>
+        <member name="M:WebApiFilters4Log.JsonContent.#ctor(System.Object,Newtonsoft.Json.Formatting)">
+            <summary>
+            Construtor que recebe um objeto que sera retornado como json
+            </summary>
+            <param name="value">Instancia de um objeto</param>
+            <param name="formatting">Formato do json</param>
+        </member>
+        <member name="M:WebApiFilters4Log.JsonContent.#ctor(System.Object)">
+            <summary>
+            Construtor que recebe um objeto que sera retornado como json
+            </summary>
+            <param name="value">Instancia de um objeto</param>
+        </member>
+        <member name="M:WebApiFilters4Log.JsonContent.SerializeToStreamAsync(System.IO.Stream,System.Net.TransportContext)">
+            <summary>
+            SerializeToStreamAsync
+            </summary>
+            <param name="stream"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiFilters4Log.JsonContent.TryComputeLength(System.Int64@)">
+            <summary>
+            TryComputeLength
+            </summary>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiFilters4Log.JsonContent.Dispose(System.Boolean)">
+            <summary>
+            Dispose
+            </summary>
+            <param name="disposing">disposing</param>
+        </member>
+        <member name="T:WebApiFilters4Log.Log4NetExtensions">
+            <summary>
+            Extensoes para log4net
+            </summary>
+        </member>
+        <member name="M:WebApiFilters4Log.Log4NetExtensions.IsEnabled(log4net.ILog,WebApiFilters4Log.LogLevel)">
+            <summary>
+            Extensao para identificar o LogLevel ativo
+            </summary>
+            <param name="logger">log4net.ILog</param>
+            <param name="logLevel">LogLevel</param>
+            <returns>true ou false</returns>
+        </member>
+        <member name="M:WebApiFilters4Log.Log4NetExtensions.GetLogLevel(log4net.ILog)">
+            <summary>
+            Extensao para obter o LogLevel ativo no Logger
+            </summary>
+            <param name="logger">log4net.ILog</param>
+        </member>
+        <member name="M:WebApiFilters4Log.Log4NetExtensions.SetLogLevel(log4net.ILog,WebApiFilters4Log.LogLevel)">
+            <summary>
+            Extensao para alterar o LogLevel do Logger
+            </summary>
+            <param name="logger">log4net.ILog</param>
+            <param name="logLevel">LogLevel</param>
+        </member>
+        <member name="M:WebApiFilters4Log.Log4NetExtensions.LogMessage(log4net.ILog,WebApiFilters4Log.LogLevel,System.String,System.String[])">
+            <summary>
+            Extensao para logar utilizando um LogLevel
+            </summary>
+            <param name="logger">log4net.ILog</param>
+            <param name="logLevel">LogLevel</param>
+            <param name="message">Mensagem</param>
+            <param name="args">Argumentos opcionais utilizados na formatacao da mensagem</param>
+        </member>
+        <member name="M:WebApiFilters4Log.Log4NetExtensions.LogMessage(log4net.ILog,WebApiFilters4Log.LogLevel,System.Web.Http.Controllers.HttpActionContext,System.String,System.String[])">
+            <summary>
+            Extensao para logar utilizando um LogLevel e extraindo o contexto do HttpActionContext
+            </summary>
+            <param name="logger">log4net.ILog</param>
+            <param name="logLevel">LogLevel</param>
+            <param name="actionContext">Instancia de HttpActionContext</param>
+            <param name="message">Mensagem</param>
+            <param name="args">Argumentos opcionais utilizados na formatacao da mensagem</param>
+        </member>
+        <member name="M:WebApiFilters4Log.Log4NetExtensions.LogMessage(log4net.ILog,WebApiFilters4Log.LogLevel,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String[])">
+            <summary>
+            Extensao para logar utilizando um LogLevel
+            </summary>
+            <param name="logger">log4net.ILog</param>
+            <param name="logLevel">LogLevel</param>
+            <param name="context">Dicionario de contexto</param>
+            <param name="message">Mensagem</param>
+            <param name="args">Argumentos opcionais utilizados na formatacao da mensagem</param>
+        </member>
+        <member name="M:WebApiFilters4Log.Log4NetExtensions.LogMessage(log4net.ILog,System.Exception)">
+            <summary>
+            Extensao para logar uma excecao em formato json
+            </summary>
+            <param name="logger">log4net.ILog</param>
+            <param name="exception">Instancia de System.Exception</param>
+        </member>
+        <member name="T:WebApiFilters4Log.Log4NetTools">
+            <summary>
+            Classe estatica utilizada para expor metodos do log4net
+            </summary>
+        </member>
+        <member name="M:WebApiFilters4Log.Log4NetTools.GetLevel(System.String)">
+            <summary>
+            Obtem o LogLevel de um Logger
+            </summary>
+            <param name="loggerName">LoggerName do Logger</param>
+            <returns>LogLevel</returns>
+            <exception cref="T:System.ArgumentException">Levanta uma excecao do tipo ArgumentException caso o logger nao exista</exception>
+        </member>
+        <member name="M:WebApiFilters4Log.Log4NetTools.SetLevel(System.String,WebApiFilters4Log.LogLevel)">
+            <summary>
+            Altera o LogLevel de um Logger
+            </summary>
+            <param name="loggerName">LoggerName do Logger</param>
+            <param name="level">LogLevel</param>
+            <exception cref="T:System.ArgumentException">Levanta uma excecao do tipo ArgumentException caso o logger nao exista</exception>
+        </member>
+        <member name="T:WebApiFilters4Log.LogLevel">
+            <summary>
+            Enumerador LogLevel
+            </summary>
+        </member>
+        <member name="F:WebApiFilters4Log.LogLevel.DEBUG">
+            <summary>
+            DEBUG
+            </summary>
+        </member>
+        <member name="F:WebApiFilters4Log.LogLevel.INFO">
+            <summary>
+            INFORMATION
+            </summary>
+        </member>
+        <member name="F:WebApiFilters4Log.LogLevel.WARN">
+            <summary>
+            WARNING
+            </summary>
+        </member>
+        <member name="F:WebApiFilters4Log.LogLevel.ERROR">
+            <summary>
+            ERROR
+            </summary>
+        </member>
+        <member name="F:WebApiFilters4Log.LogLevel.FATAL">
+            <summary>
+            FATAL
+            </summary>
+        </member>
+        <member name="F:WebApiFilters4Log.LogLevel.OFF">
+            <summary>
+            OFF
+            </summary>
+        </member>
+    </members>
+</doc>
