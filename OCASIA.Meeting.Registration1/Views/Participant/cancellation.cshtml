@@ -1,0 +1,28 @@
+﻿@using OCASIA.Meeting.DAL.ApplicationModels ;
+@{
+    ViewBag.Title = "Cancellation";
+    MeetingDetail details = ViewBag.MeetingDetails as MeetingDetail;
+}
+@if (details != null)
+{
+    <section>
+        <div class="container pt-4 pb-4 mb-4">
+            <div class="row">
+                <div class="col-md-8 content">
+                    <p class="pad_tb25 main_title">CANCEL REGISTRATION</p>
+                    <p>
+                        Thank you for response to our invitation to participate in the @details.MeetingName
+                    </p>
+                    <p>We are sorry to here that you will be unable to attend.  </p>
+                    <p>We remain at your disposal for any questions  </p>
+                    <p>Email:<a href="mailto:@details.EmailAddress">@details.EmailAddress</a> </p>
+
+                </div>
+                @{ 
+                    Html.RenderPartial("_FAQ");
+                }
+            </div>
+        </div>
+    </section>
+}
+

@@ -1,0 +1,32 @@
+﻿@using OCASIA.Meeting.DAL.ApplicationModels;
+@model IEnumerable<UserDetailsModel>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        string accname = "collapse" + item.UserDetailID;
+
+        <div class="panel-group content_acc" id="acc_parent1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#acc_parent1" href="#@accname">
+                            Guest : @item.GivenName
+                        </a>
+
+                    </h4>
+                </div>
+                <div id="@accname" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                        @{
+                            Html.RenderPartial("_PersonalDetails", item);
+                        }
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    }
+</div>

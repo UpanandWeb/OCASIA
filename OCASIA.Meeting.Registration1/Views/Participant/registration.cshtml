@@ -1,0 +1,116 @@
+﻿@model  OCASIA.Meeting.DAL.ApplicationModels.ParticipantRegistration
+@{
+    string AccessKey = string.Empty;
+    ViewBag.Title = "registration";
+
+}
+<div class="container container_ptb">
+    <div class="row">
+        <div class="col-md-8">
+            <p class="pad_tb25 main_title"> PROFILE INFORMATION</p>
+            @using (Ajax.BeginForm("UserRegistration", "Participant", null, htmlAttributes: new { @class = "form" }))
+            {
+                
+                @Html.HiddenFor(el => el.MeetingID);
+                @Html.AntiForgeryToken();
+                <div class="form_element">
+                    <div class="form-group">
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Title
+                                <span class="text-danger">*</span>:
+                            </label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(el => el.TitleID, new SelectList(ViewBag.TitleList, "ID", "Name"), "--Select Title--", new { @class = "form-control select_h", @autofocus = "autofocus", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(el => el.TitleID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Given Name
+                                <span class="text-danger">*</span>:
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.GivenName, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Given Name" })
+                                @Html.ValidationMessageFor(model => model.GivenName, null, new { @class = "text-danger" })
+
+
+                                @*<input autocomplete="off" autofocus="autofocus" class="form-control" data-val="true" data-val-required="The Searchtext field is required." id="Searchtext" name="Searchtext" placeholder="Enter given Name" type="text" value="">*@
+                                @*<span class="input_span">As it appears on passport</span>
+                                    <span class="field-validation-valid text-danger Searchtext" data-valmsg-for="Searchtext" data-valmsg-replace="true"></span>*@
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Family Name
+                                <span class="text-danger">*</span>:
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.FamilyName, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "As it appears on passport" })
+                                @Html.ValidationMessageFor(model => model.FamilyName, null, new { @class = "text-danger" })
+
+                                @*<input autocomplete="off" class="form-control" data-val="true" placeholder="Enter family Name" type="text" value="">
+                                    <span class="input_span">As it appears on passport - uppercase</span>
+                                    <span class="field-validation-valid text-danger Searchtext" data-valmsg-for="Searchtext" data-valmsg-replace="true"></span>*@
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Email
+                                <span class="text-danger">*</span>:
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Email address" })
+                                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+
+                                @*<input autocomplete="off" autofocus="autofocus" class="form-control" placeholder="Enter email" type="text" value="">*@
+
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Password
+                                <span class="text-danger">*</span>:
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter password", @type = "password" })
+                                @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })
+
+                                @*<input autocomplete="off" autofocus="autofocus" class="form-control" placeholder="Enter access code" type="text" value="">*@
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Confirm  Password
+                                <span class="text-danger">*</span>:
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control", @autofocus = "autofocus", @type = "password", @autocomplete = "off", @placeholder = "Enter confirm password" })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "text-danger" })
+
+                                @*<input autocomplete="off" autofocus="autofocus" class="form-control" placeholder="Enter access code" type="text" value="">*@
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="text-right">
+                        <button class="btn btn_org " type="submit">NEXT STEP</button>
+                    </div>
+
+                </div>
+            }
+        </div>
+        @{
+            Html.RenderPartial("_FAQ");
+        }
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

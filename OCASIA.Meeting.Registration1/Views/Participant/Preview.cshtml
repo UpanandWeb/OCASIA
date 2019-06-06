@@ -1,0 +1,107 @@
+﻿@model OCASIA.Meeting.DAL.ApplicationModels.PreviewDetails
+
+@{
+    ViewBag.Title = "Preview";
+    bool NoDetails = true;
+}
+
+@using (Ajax.BeginForm("Confirmation", "Participant", null, htmlAttributes: new { @class = "form", HttpMethod = "Post" }))
+{
+    if (Model != null)
+    {
+        <div class="container pt-4 pb-4 mb-4">
+
+            @if (Model.Guests != null)
+            {
+                var basic = Model.Guests.Where(el => el.IsGust == false).FirstOrDefault();
+                if (basic != null && !string.IsNullOrEmpty(basic.PassportNumber))
+                {
+                    NoDetails = false;
+                    <div class="row">
+                        <div class="panel-group content_acc" id="acc_parent1">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#acc_parent1" href="#collapseOne">
+                                            Personal Details
+                                        </a>
+
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        @{
+
+                                            Html.RenderPartial("_PersonalDetails", basic);
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            @if (Model.Travel != null)
+            {
+                NoDetails = false;
+                <div class="row">
+                    <div class="panel-group content_acc" id="acc_parent1">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#acc_parent1" href="#collapse2">
+                                        Travel Details
+                                    </a>
+
+                                </h4>
+                            </div>
+                            <div id="collapse2" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    @{
+
+                                        Html.RenderPartial("_TravelDetails", Model.Travel);
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+            @if (Model.Guests != null)
+            {
+
+                var guests = Model.Guests.Where(el => el.IsGust).ToList();
+
+
+                if (guests != null)
+                {
+
+                    Html.RenderPartial("_guest", guests);
+                }
+
+
+            }
+
+
+
+            @if (Model.ShowSubmitButton)
+            {
+                <div class=" text-right">
+                    <hr style="border-top:0px;">
+                    <button class="btn btn_org " type="submit">Confirmation</button>
+                </div>
+            }
+        </div>
+    }
+}
+@if (NoDetails)
+{
+    <div class="text-center">
+
+        <h2>Please fill the details</h2>
+    </div>
+   
+}

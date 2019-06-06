@@ -1,0 +1,53 @@
+﻿@using OCASIA.Meeting.DAL.ApplicationModels;
+@model  UserDetailsModel
+@{
+    var ListOfGuests = ViewBag.ListOfGuests as List<CollectionDetails>;
+    ViewBag.Title = "Guests";
+}
+@if (ListOfGuests != null && ListOfGuests.Count > 0)
+{
+    <section class="pt-4 pb-4 " style="background:#f9f9f9">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 detail-list-content">
+                    @foreach (var item in ListOfGuests)
+                    {
+                        <div>
+                            <span style="cursor:pointer" onclick="Addaccordion('@item.ID')">@item.Name</span>
+                            <i class="fa fa-close" style="cursor:pointer"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<div class="text-right">
+    <a href="javascript:void(0)" onclick="Skipaccordion()" class="btn btn_org">SKIP</a>
+    <a href="javascript:void(0)" onclick="Addaccordion()" class="btn btn_org" id="ADDID">ADD</a>
+    <a href="@Url.Action("Preview","Participant")" class="btn btn_org">CONTINUE</a>
+</div>
+<div id="AddGuestID">
+
+</div>
+<div class="clearfix"></div>
+<br />
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        Addaccordion = function (UserDetailID) {
+            $.get("@Url.Action("AddGuest", "Participant")", { UserDetailID, UserDetailID }, function (response) {
+                $("#AddGuestID").html(response);
+            });
+            //if (UserDetailID != 0) {
+            //    $("#ADDID").hide();
+            //} else {
+            //    $("#ADDID").show();
+            //}
+        }
+
+        Skipaccordion = function () {
+            $("#AddGuestID").html('');
+        }
+    </script>
+}

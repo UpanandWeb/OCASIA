@@ -1,0 +1,52 @@
+﻿@model string
+@{
+    ViewBag.Title = "Access key validation";
+    string AccessKey = string.Empty;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    OCASIA.Meeting.DAL.ApplicationModels.MeetingDetail details = ViewBag.MeetingDetails as OCASIA.Meeting.DAL.ApplicationModels.MeetingDetail;
+
+}
+@if (details != null)
+{
+    <section>
+        <div class="container container_ptb">
+
+
+            <div class="row">
+                <div class="col-md-8">
+                    <p class="pad_tb25"> Welcome to the @details.MeetingName registration system. </p>
+                    @using (Ajax.BeginForm("AccessKeyValidation", "Participant",  null, htmlAttributes: new { @class = "form" }))
+                    {
+                        @Html.AntiForgeryToken();
+                        <div class="form-group  form_element mb_40">
+                            <div class="row">
+                                <label class="col-md-3 col-form-label">
+                                    Access Key
+                                    <span class="text-danger">*</span>:
+                                </label>
+                                <div class="col-md-9 mb-3">
+                                    <input autocomplete="off" autofocus class="form-control" data-val="true"  id="AccessKey" name="AccessKey" placeholder="Please enter your invitation code" type="text" value="">
+                                    @*<span class="input_span">Please enter your invitation code above</span>*@
+                                    <span class="field-validation-valid text-danger AccessKey" data-valmsg-for="AccessKey" data-valmsg-replace="true"></span>
+                                </div>
+                                </div>
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <button class="btn btn_org " type="submit" >ENTER</button>
+                                </div>
+                            </div>
+                        </div>
+                    } 
+                </div>
+                @{
+                    Html.RenderPartial("_FAQ");
+                }
+            </div>
+        </div>
+    </section>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+@*@Html.ActionLink("permission", "ValidateUrl",new { meetingID=2 });*@

@@ -1,0 +1,352 @@
+﻿@model OCASIA.Meeting.DAL.ApplicationModels.UserDetailsModel
+@{
+    ViewBag.Title = "Personal Details";
+    bool IsPreviewScreen = ViewBag.IsPreviewScreen == null ? false : true;
+}
+<div class="preview_text">
+
+    <h4 class="mt_0"><span>Basic details</span></h4>
+
+    <div class="col-md-12 preview_div">
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Title
+                </label>
+                <div class="col-md-8 preview_result">
+                    @Html.DisplayFor(el => el.Title)
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Given Name
+                </label>
+                <div class="col-md-8 preview_result">
+                    @Html.DisplayFor(el => el.GivenName)
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Family Name
+
+                </label>
+                <div class="col-md-8 preview_result">
+                    @Html.DisplayFor(el => el.FamilyName)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Email
+                </label>
+                <div class="col-md-8 preview_result">
+                    @Html.DisplayFor(el => el.Email)
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Preferred name
+                </label>
+                <div class="col-md-8 preview_result">
+                    @Html.DisplayFor(el => el.FirstLastName)
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Gender
+
+                </label>
+                <div class="col-md-8 preview_result">
+                    <div class="input_radiodiv">
+                        @Html.DisplayFor(m => m.Gender)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6 ">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Assistant mail
+                </label>
+                <div class="col-md-8 preview_result">
+                    @Html.DisplayFor(el => el.AssitantEmail)
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Country
+
+                </label>
+                <div class="col-md-8 preview_result">
+
+                    @Html.DisplayFor(el => el.CountryName)
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Position
+
+                </label>
+                <div class="col-md-8 preview_result">
+                    @Html.DisplayFor(el => el.OrganizationDesignation)
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Organization
+
+                </label>
+                <div class="col-md-8 preview_result">
+                    @Html.DisplayFor(el => el.Organization)
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Photo
+
+                </label>
+
+
+                <div class="col-sm-8">
+                    @if (!string.IsNullOrEmpty(Model.UploadedPicturePath))
+                    {
+                        <img class="img-thumbnail" src="@Model.UploadedPicturePath" style="height: 80px;cursor:pointer;width: 80px;" data-toggle="modal" data-target="#galleryModal" onclick="ShowGallerywithCaption('@Model.UploadedPicturePath','@Model.GivenName')" />
+                    }
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <h4><span>Mailing address</span></h4>
+
+    <div class="col-md-12 preview_div">
+
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Company
+
+                </label>
+                <div class="col-md-8">
+                    @Html.DisplayFor(el => el.Company)
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Address-Line 1
+                </label>
+                <div class="col-md-8">
+                    @Html.DisplayFor(el => el.AddressLine1)
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Address-Line 2
+                </label>
+                <div class="col-md-8">
+                    @Html.DisplayFor(el => el.AddressLine2)
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Postal Code
+                </label>
+                <div class="col-md-8">
+                    @Html.DisplayFor(el => el.PostalCode)
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    City
+                </label>
+                <div class="col-md-8">
+                    @Html.DisplayFor(el => el.PostalCode)
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    State/Province
+                </label>
+                <div class="col-md-8">
+                    @Html.DisplayFor(el => el.StateProvince)
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Country of residence
+                </label>
+                <div class="col-md-8">
+
+                    @Html.DisplayFor(el => el.CountryOfResidance)
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Update profile
+                </label>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        @if (!string.IsNullOrEmpty(Model.Desc4))
+                        {
+                            <img class="img-thumbnail" src="@Model.Desc4" style="height: 80px;cursor:pointer;width: 80px;" data-toggle="modal" data-target="#galleryModal" onclick="ShowGallerywithCaption('@Model.Desc4','@Model.Email')" />
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <h4><span>Passport information</span></h4>
+
+    <div class="col-md-12 preview_div">
+
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Passport Number
+
+                </label>
+                <div class="col-md-8">
+                    @Html.DisplayFor(el => el.PassportNumber)
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Nationality
+
+                </label>
+                <div class="col-md-8">
+                    @Html.DisplayFor(el => el.Nationality)
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Date of Birth
+
+                </label>
+                <div class="col-md-8">
+                    @Html.DisplayFor(el => el.DDOB)
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Issue Date
+
+                </label>
+                <div class="col-md-8">
+                    @Html.DisplayFor(el => el.IDate)
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Expity Date
+
+                </label>
+                <div class="col-md-8">
+
+                    @Html.DisplayFor(el => el.EDate)
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <label class="col-md-4 col-form-label">
+                    Copy of Passport
+
+                </label>
+                <div class="col-md-8">
+                    @if (!string.IsNullOrEmpty(Model.PassportCoptyPath))
+                    {
+                        <a href="http://localhost:49959/@Model.PassportCoptyPath" download="http://localhost:49959/@Model.PassportCoptyPath">@Model.Desc3</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+

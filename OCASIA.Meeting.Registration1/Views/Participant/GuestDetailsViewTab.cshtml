@@ -1,0 +1,62 @@
+﻿@using OCASIA.Meeting.DAL.ApplicationModels;
+@model IEnumerable<UserDetailsModel>
+@{
+    /**/
+
+    ViewBag.Title = "Guests";
+    //var  vv = new List<UserDetailsModel>() { new UserDetailsModel() {Nationality="dfd" } };
+}
+
+@*<h2>guest</h2>*@
+
+
+<section>
+    <div class="container pt-4 pb-4 mb-4">
+        <div class="row">
+            @using (Ajax.BeginForm("Preview", "Participant", null, htmlAttributes: new { @class = "form", HttpMethod = "Post" }))
+            {
+                <div class="col-md-12">
+
+                    @if (Model != null)
+                    {
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                
+                                string collaps = "collapse" + item.UserDetailID;
+
+                                <div class="panel-group content_acc" id="accparent1">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accparent1" href="#@collaps">
+                                                    Guest : @item.GivenName
+                                                </a>
+
+                                            </h4>
+                                        </div>
+
+                                        <div id="@collaps" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                @{
+                                                    Html.RenderPartial("_PersonalDetails", item);
+                                                }
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="text-right">
+                                <button type="submit" class="btn btn_org">NEXT STEP</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,72 @@
+﻿@using OCASIA.Meeting.DAL.ApplicationModels
+@{ MeetingDetail details = ViewBag.MeetingDetails as MeetingDetail;
+    // bool IsSubmitted = ViewBag.IsSubmitted == null ? false : ViewBag.IsSubmitted;
+}
+@if (details != null && details.TabDetails != null && details.TabDetails.Count > 0)
+{
+    <!-- user title names-->
+    <div class="username_div">
+        <div class="col-md-12 text-center pb-4 pt-4">
+            <h2>@details.UserName</h2>
+        </div>
+    </div>
+    <!-- end user name -->
+    <!-- menu and title div -->
+    <section class="menu_section">
+        <div>
+
+            <ul class="hor_menu">
+                @foreach (var item in details.TabDetails)
+                {
+
+                    string s = item.IsSelected ? "active" : "";
+                    string actioName = "";
+                    switch (item.ID)
+                    {
+
+                        case 1: actioName = "InformationView"; break;
+                        case 2: actioName = "PersonalDetailsView"; break;
+                        case 3: actioName = "TravelDetailsView"; break;
+                        case 5: actioName = "GuestsView"; break;
+                            //case 4: actioName = "EventView"; break;
+
+                    }
+                    if (item.Name == "Confirmation" && item.IsToShow)
+                    {
+                        <li class="current @s"><a href="@Url.Action("Confirmation", "Participant")">@item.Name <span class="req_field">*</span></a></li>
+
+                    }
+                    else if (item.Name == "Preview")
+                    {
+                        <li class="current @s"><a href="@Url.Action("Preview", "Participant")">@item.Name</a></li>
+
+                    }
+                    else if (item.Name == "Cancellation" && item.IsToShow)
+                    {
+                        <li class="current @s"><a href="@Url.Action("Cancellation", "Participant")">@item.Name</a></li>
+
+                    }
+                    else if (item.IsToShow)
+                    {
+
+                        <li class="current @s">
+                            <a href="@Url.Action(actioName, "Participant")">
+                                @item.Name
+                            @if (item.ID != 5)
+                            {
+                                <span class="req_field">*</span>}
+                        </a>
+                    </li>
+                }
+            }
+
+
+            </ul>
+
+
+        </div>
+    </section>
+}
+<!-- end menu title div -->
+<!-- content div -->
+<!-- content div -->

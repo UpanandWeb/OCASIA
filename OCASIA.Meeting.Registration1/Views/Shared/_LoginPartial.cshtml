@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNet.Identity
+
+<ul class="nav navbar-nav navbar-right" >
+
+
+    @if (Request.IsAuthenticated)
+    {
+
+        @*<li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>*@
+        <li>
+            @Html.ActionLink("Home", "InformationView", "Participant", routeValues: null, htmlAttributes: new { title = "Home" })
+        </li>
+
+        <li>
+            @Html.ActionLink("Information", "MeetingDetailsView", "Participant", routeValues: null, htmlAttributes: new { title = "Information" })
+        </li>
+        <li>
+                @Html.ActionLink("Change Password", "ChangePassword", "Participant", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+        <li>
+            @Html.ActionLink("Log off ", "LogOff", "Participant", routeValues: new { Email = User.Identity.Name }, htmlAttributes: new { title = "Log off" })
+        </li>
+    }
+    else
+    {
+        <li>
+            @Html.ActionLink("Home", "ValidateUrl", "Participant", routeValues: null, htmlAttributes: new { title = "Home" })
+        </li>
+        <li>
+            @Html.ActionLink("Information", "MeetingDetailsView", "Participant", routeValues: null, htmlAttributes: new { title = "Information" })
+        </li>
+        @*<li>
+                @Html.ActionLink("FQA", "FQA", "Participant", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>*@
+        <li><a href="@ViewBag.FaqPath">FQA</a></li>
+        <li>
+            @Html.ActionLink("Login", "Login", "Participant", routeValues: null, htmlAttributes: new { title = "Login" })
+        </li>
+    }
+</ul>
+
+

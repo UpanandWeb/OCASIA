@@ -1,0 +1,553 @@
+﻿@model OCASIA.Meeting.DAL.ApplicationModels.UserDetailsModel
+<section>
+    <div class="container pt-4 pb-4 mb-4">
+        <div class="row">
+            @using (Ajax.BeginForm("AddPersonalDetails", "Participant", null, htmlAttributes: new { @class = "form", HttpMethod = "Post" }))
+            {
+                @Html.AntiForgeryToken();
+                @Html.Hidden("HttpPostedFilBase64")
+                @Html.Hidden("FileName")
+                @Html.Hidden("HttpPostedVFilBase64")
+                @Html.Hidden("VFileName")
+                @Html.Hidden("HttpPostePFilBase64")
+                @Html.Hidden("PFileName")
+                @Html.HiddenFor(el => el.UserDetailID)
+                <input id="Isguest" name="Isguest" type="hidden" value="true">
+                <div class="col-md-12">
+                    <p class="pad_tb25 main_title"> GUEST PERSONAL DETAILS </p>
+                    <div class="form_element">
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Title<span class="text-danger">*</span>:
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.DropDownListFor(el => el.TitleID, new SelectList(ViewBag.TitleList, "ID", "Name"), "--Select Title--", new { @class = "form-control select_h", @autofocus = "autofocus", @autocomplete = "off" })
+                                        @Html.ValidationMessageFor(el => el.TitleID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Given Name<span class="text-danger">*</span>:
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(el => Model.GivenName, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Given Name" })
+                                        @Html.ValidationMessageFor(el => Model.GivenName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-2">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Family Name<span class="text-danger">*</span>:
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(el => Model.FamilyName, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Family Name" })
+                                        @Html.ValidationMessageFor(el => Model.FamilyName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Email
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(el => Model.Email, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Email" })
+                                        @Html.ValidationMessageFor(el => Model.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Preferred First and Last name
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(el => Model.FirstLastName, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter preferred first and fast name" })
+                                        <span class="input_span">(Full name you would like to appear on the accreditation card if differant from above )</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Gender
+                                        <span class="text-danger">*</span>:
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="input_radiodiv">
+                                            @Html.RadioButtonFor(m => Model.Gender, "Male", new { @class = "input_radiobtn" }) <label class="radiolabel">Male</label>
+                                        </div>
+                                        <div class="input_radiodiv">
+                                            @Html.RadioButtonFor(m => Model.Gender, "Female", new { @class = "input_radiobtn" })<label class="radiolabel">Female</label>
+                                        </div>
+                                        @Html.ValidationMessageFor(el => Model.Gender, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Assistant mail
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(el => Model.AssitantEmail, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter assistant mail" })
+                                        @Html.ValidationMessageFor(el => Model.AssitantEmail, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            @if (ViewBag.CountryList != null)
+                            {
+                                <div class="col-md-6 mb-3">
+                                    <div>
+                                        <label class="col-md-4 col-form-label">
+                                            Country
+                                            <span class="text-danger">*</span>:
+                                        </label>
+                                        <div class="col-md-8">
+
+                                            @Html.DropDownListFor(el => Model.CountryID, new SelectList(ViewBag.CountryList, "ID", "Name"), "--Select Country--", new { @class = "form-control select_h", @autofocus = "autofocus", @autocomplete = "off" })
+                                            @Html.ValidationMessageFor(el => Model.CountryID, "", new { @class = "text-danger" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Position
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(el => Model.OrganizationDesignation, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter position" })
+                                        @Html.ValidationMessageFor(el => Model.OrganizationDesignation, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Organization
+                                        <span class="text-danger">*</span>:
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(el => Model.Organization, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter organization" })
+                                        @Html.ValidationMessageFor(el => Model.Organization, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 ">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Photo
+                                        <span class="text-danger">*</span>:
+                                    </label>
+                                    <div class="col-md-8">
+                                        @if (!string.IsNullOrEmpty(Model.UploadedPicturePath))
+                                        {
+                                            <input type="file" id="uploadfile" value="@Model.UploadedPicturePath" name="uploadfile" accept=".jpg, .jpeg" />
+                                        }
+                                        else {
+                                            <input type="file" id="uploadfile" required name="uploadfile" accept=".jpg, .jpeg" style=" margin-top 7px;" />
+                                            <span class="text-danger uploadfileerror"></span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div>
+                                    <div class="col-md-8 col-md-offset-4">
+                                        @if (!string.IsNullOrEmpty(Model.UploadedPicturePath))
+                                        {
+                                            <label class="ImagePreview ImagePreviewcls">
+                                                <img id="ImagePreview" class="img-thumbnail" src="@Model.UploadedPicturePath" style="height:175px; width:175px; cursor:pointer;" data-toggle="modal" data-target="#galleryModal" onclick="ShowGallerywithCaption('@Model.UploadedPicturePath','@Model.GivenName')" />
+                                                <button onclick="CloseImagePreview()"><i class="fa fa-close"></i></button>
+                                            </label>
+                                        }
+                                        else {
+                                            <label class="ImagePreview ImagePreviewcls" style="display:none">
+                                                <img id="ImagePreview" class="" src="" style="height:175px; width:175px;" alt="" title="" />
+                                                <button onclick="CloseImagePreview()"><i class="fa fa-close"></i></button>
+                                            </label>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <p class="pad_tb25 mt-5 main_title"> GUEST MAILING  ADDRESS </p>
+                    <div class="form_element">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Company
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(el => Model.Company, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Company" })
+
+                                        <span class="input_span">if applicable</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Address-Line 1
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(el => Model.AddressLine1, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Address-Line 1" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Address-Line 2
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(el => Model.AddressLine2, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Address-Line 2" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Postal Code
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(el => Model.PostalCode, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Postal Code" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        City
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(el => Model.PostalCode, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter City" })
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        State/Province
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(el => Model.StateProvince, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter State Province" })
+
+                                    </div>
+                                </div>
+                            </div>
+                            @if (ViewBag.CountryList != null)
+                            {
+                                <div class="col-md-6 mb-3">
+                                    <div>
+                                        <label class="col-md-4 col-form-label">
+                                            Country of Residence
+                                        </label>
+                                        <div class="col-md-8">
+
+                                            @Html.DropDownListFor(el => Model.CountryOfResidance, new SelectList(ViewBag.CountryList, "ID", "Name"), "--Select Residence Country--", new { @class = "form-control select_h", @autofocus = "autofocus", @autocomplete = "off" })
+                                            @Html.ValidationMessageFor(el => Model.CountryOfResidance, "", new { @class = "text-danger" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-md-6 mb-3">
+                                <div>
+                                    <label class="col-md-4 col-form-label">
+                                        Update profile
+                                    </label>
+
+                                    <div class="col-md-8">
+                                        @if (!string.IsNullOrEmpty(Model.Desc4))
+                                        {
+                                            <input type="file" id="uploadvfile" value="@Model.Desc4" name="uploadvfile" accept=".jpg, .jpeg" />
+                                        }
+                                        else {
+                                            <input type="file" id="uploadvfile" name="uploadvfile" accept=".jpg, .jpeg" style="margin-top:7px;" />
+                                            <span class="text-danger uploadvfileerror"></span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div>
+                                    <div class="col-md-8 col-md-offset-4 ">
+                                        <label class="ImagevPreview ImagePreviewcls" style="display:none">
+                                            <img id="ImagevPreview" class="" src="" style="height:175px; width:175px;" alt="" title="" />
+                                            <button onclick="CloseImagevPreview()"><i class="fa fa-close"></i></button>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <p class="pad_tb25 mt-5 main_title"> GUEST PASSPORT INFORMATION</p>
+                    <div class="form_element">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="col-md-4 col-form-label">
+                                    Passport Number
+                                    <span class="text-danger">*</span>:
+                                </label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(el => Model.PassportNumber, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Passport Number" })
+                                    @Html.ValidationMessageFor(el => Model.PassportNumber, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="col-md-4 col-form-label">
+                                    Nationality
+                                    <span class="text-danger">*</span>:
+                                </label>
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(el => Model.Nationality, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Nationality" })
+                                    @Html.ValidationMessageFor(el => Model.Nationality, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="col-md-4 col-form-label">
+                                    Date of Birth
+                                    <span class="text-danger">*</span>:
+                                </label>
+                                <div class="col-md-8">
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(el => Model.DOB, new { @class = "form-control ", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Date of Birth" })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(el => Model.DOB, "", new { @class = "text-danger DOB" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="col-md-4 col-form-label">
+                                    Issue Date
+                                    <span class="text-danger">*</span>:
+                                </label>
+                                <div class="col-md-8">
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(el => Model.IssueDate, new { @class = "form-control ", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter IssueDate" })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(el => Model.IssueDate, "", new { @class = "text-danger IssueDate" })
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 mb-3">
+                                <label class="col-md-4 col-form-label">
+                                    Expity Date
+                                    <span class="text-danger">*</span>:
+                                </label>
+                                <div class="col-md-8">
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(el => Model.ExpiryDate, new { @class = "form-control ", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter ExpiryDate" })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(el => Model.ExpiryDate, "", new { @class = "text-danger ExpiryDate" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="col-md-4 col-form-label">
+                                    Copy of Passport
+                                    <span class="text-danger">*</span>:
+                                </label>
+                                <div class="col-md-8">
+                                    @if (!string.IsNullOrEmpty(Model.PassportCoptyPath))
+                                    {
+                                        <input type="file" id="uploadpfile" name="uploadpfile" accept=".pdf" style="margin-top:7px;" />
+                                        string Url = HttpContext.Current.Request.Url.Authority;
+                                        <a href="http://localhost:49959/@Model.PassportCoptyPath" download="http://localhost:49959/@Model.PassportCoptyPath">@Model.Desc3</a>
+                                    }
+                                    else {
+                                        <input type="file" id="uploadpfile" required name="uploadpfile" accept=".pdf" style="margin-top:7px;" />
+                                        <span class="text-danger uploadpfileerror"></span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <button class="btn btn_org" onclick="uploadfilechange()">SAVE</button>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<link href="~/Content/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script type="text/javascript">
+    CloseImagePreview = function () {
+        $("#uploadfile").val('');
+        $('#HttpPostedFilBase64').val('');
+        $("#FileName").val('');
+        $("#ImagePreview").removeAttr("src");
+        $(".ImagePreview").hide();
+        $("#uploadfile").focus();
+    }
+
+    CloseImagevPreview = function () {
+        $("#uploadvfile").val('');
+        $('#HttpPostedVFilBase64').val('');
+        $("#VFileName").val('');
+        $("#ImagevPreview").removeAttr("src");
+        $(".ImagevPreview").hide();
+        $("#uploadvfile").focus();
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#HttpPostedFilBase64').val(e.target.result);
+                var filename = $('#uploadfile').val().replace(/C:\\fakepath\\/i, '')
+                $("#FileName").val(filename);
+                $("#ImagePreview").attr("src", e.target.result);
+                $("#ImagePreview").addClass("img-thumbnail", "");
+                $(".uploadfileerror").html('');
+                $(".ImagePreview").show();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#uploadfile").change(function () {
+        readURL(this);
+        $(".uploadfileerror").html('');
+    });
+
+    function readVURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#HttpPostedVFilBase64').val(e.target.result);
+                var filename = $('#uploadvfile').val().replace(/C:\\fakepath\\/i, '');
+                $("#VFileName").val(filename);
+                $("#ImagevPreview").attr("src", e.target.result);
+                $("#ImagevPreview").addClass("img-thumbnail", "");
+                $(".uploadvfileerror").html('');
+                $(".ImagevPreview").show();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#uploadvfile").change(function () {
+        readVURL(this);
+        $(".uploadvfileerror").html('');
+    });
+
+    function readPURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#HttpPostePFilBase64').val(e.target.result);
+                var filename = $('#uploadpfile').val().replace(/C:\\fakepath\\/i, '');
+                $("#PFileName").val(filename);
+                $(".uploadpfileerror").html('');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#uploadpfile").change(function () {
+        readPURL(this);
+        $(".uploadpfileerror").html('');
+    });
+
+    uploadfilechange = function () {
+        if ($('#uploadfile').val() != "") {
+            $(".uploadfileerror").html('');
+        }
+        else {
+            $(".uploadfileerror").html('The upload person image field is required.');
+        }
+        if ($('#uploadpfile').val() != "") {
+            $(".uploadpfileerror").html('');
+        }
+        else {
+            $(".uploadpfileerror").html('The upload passport field is required.');
+        }
+    };
+
+
+    //Date
+
+    var dateToday1 = new Date();
+    $("#DOB").datepicker({
+        dateFormat: "mm/dd/yy",
+        changeMonth: true,
+        changeYear: true,
+        maxDate: dateToday1,
+        onSelect: function (date) {
+            $(".DOB").html('');
+        }
+    });
+
+    var dateToday = new Date();
+    var dates = $("#IssueDate, #ExpiryDate").datepicker({
+        //defaultDate: "+1w",
+        changeMonth: true,
+        changeYear: true,
+        onSelect: function (selectedDate) {
+            if (selectedDate != '') {
+                $(".ui-state-default").removeClass("ui-state-highlight", "");
+            }
+            var option = this.id == "IssueDate" ? "minDate" : "maxDate",
+                instance = $(this).data("datepicker"),
+                date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+            dates.not(this).datepicker("option", option, date);
+            $(".IssueDate").html('');
+            $(".ExpiryDate").html('');
+        }
+    }).on('change', function () {
+        $('.datepicker').hide();
+    });
+
+</script>

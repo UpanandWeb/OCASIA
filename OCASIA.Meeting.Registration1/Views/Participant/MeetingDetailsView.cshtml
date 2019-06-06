@@ -1,0 +1,97 @@
+﻿
+@using OCASIA.Meeting.DAL.ApplicationModels;
+
+@{
+
+    MeetingViewModel Information = ViewBag.Information as OCASIA.Meeting.DAL.ApplicationModels.MeetingViewModel;
+
+    ViewBag.Title = "Meeting information";
+}
+@if (Information != null)
+{
+<div class="container pt-4 pb-4">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="pad_tb25 main_title ">MEETING INFORMATION </p>
+
+                <div class=" content text-center">
+                    <P class="title mb-3"><b>The @Information.MeetingName will start in @Information.DaysToGo days</b></P>
+                    <div class="row gray_bg">
+
+
+                        <div class="col-md-6">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td> <b>Event Start Date</b></td>
+                                        <td>@Information.sDate</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td> <b>Registration Start Date</b></td>
+                                        <td>@Information.rsDate</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td> <b>Address</b></td>
+                                        <td>@Information.Address</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td> <b>Phone Number</b></td>
+                                        <td>@Information.PhoneNumber</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td> <b>About</b></td>
+                                        <td>@Information.MeetingDescription</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td> <b>Event End Date</b></td>
+                                        <td>@Information.eDate</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td> <b>Registration End Date</b></td>
+                                        <td>@Information.reDate</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td> <b>Email Address</b></td>
+                                        <td>@Information.OfficalEmail</td>
+
+                                    <tr>
+                                        <td> <b>Fax Number</b></td>
+                                        <td>@Information.FaxNumber</td>
+
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div class="">                    @Information.Description1                </div>
+                    <img src="@Information.Description1PicturePath" style="width: 79%;">
+                    <P>The full programme of the meetings is available <a href="@Information.SchedulePath">Here</a> </P>
+                    <div class="">                    @Information.Description2                </div>
+                    <img src="@Information.Description2PicturePath" style="width: 79%;">
+
+                </div>
+
+           
+
+
+        </div>
+
+    </div>
+</div>
+}

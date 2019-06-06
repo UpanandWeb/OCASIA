@@ -1,0 +1,26 @@
+﻿@model OCASIA.Meeting.DAL.ApplicationModels.TravelDetailsModel
+@{
+    ViewBag.Title = "Travel Details";
+    bool IsPreviewScreen = ViewBag.IsPreviewScreen == null ? false : true;
+
+}
+
+<section>
+    <div class="container pt-4 pb-4 mb-4">
+
+        @using (Ajax.BeginForm("GuestsView", "Participant", null, null))
+        {
+            @Html.AntiForgeryToken();
+            <div class="row">
+                @{
+                    Html.RenderPartial("_TravelDetails");
+                }
+            </div>
+            <div class="row">
+                <div class=" text-right">
+                    <button type="submit" class="btn btn_org ">NEXT STEP</button>
+                </div>
+            </div>
+        }
+    </div>
+</section>

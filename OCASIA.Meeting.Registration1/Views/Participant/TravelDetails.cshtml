@@ -1,0 +1,207 @@
+﻿@model OCASIA.Meeting.DAL.ApplicationModels.TravelDetailsModel
+@{
+    ViewBag.Title = "Travel Details";
+}
+
+<div class="container pt-4 pb-4 mb-4">
+    <div class="row">
+
+        <div class="col-md-8">
+            @*<div class="content pb-4 mb-4">
+                    <p>
+                        This year’s General Assembly will convene on 28-29 November and will once again attract more than 1,000 delegates from all 206 NOCs, as well as representatives from International Federations, the IOC and upcoming Organising Committees. On the agenda will be the elections for the ANOC Presidency, the ratification of the ANOC Executive Council and the 2026 Olympic Winter bid cities will also present to the NOC family for the very first time, providing NOCs with a unique opportunity to learn more about their Olympic offerings.<br>
+                        email:<a href="">abc@gmail.com</a><br>
+                        This year’s General Assembly will convene on 28-29 November and will once again
+                    </p>
+                </div>*@
+
+            <p class="pad_tb25 main_title">TRAVEL INFORMATION </p>
+            @using (Ajax.BeginForm("AddTravelDetails", "Participant", null, htmlAttributes: new { @class = "form", HttpMethod = "Post" }))
+            {
+                @Html.AntiForgeryToken();
+                @Html.HiddenFor(EL => EL.TravelDetailID);
+                <div class="form_element">
+                    <div class="form-group">
+
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Arrival date
+                            </label>
+                            <div class="col-md-8">
+                                <div class="input-group date">
+
+                                    @Html.TextBoxFor(el => el.ArrivalDate, Helper.View_DateFormat, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter arrival date", id="arrivaldate" })
+                                    @Html.ValidationMessageFor(el => el.ArrivalDate, "", new { @class = "text-danger" })
+
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Arrival time
+                            </label>
+                            <div class="col-md-8">
+                               @Html.TextBoxFor(el => el.ArrivalTime, new { @class = "form-control timepicker", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter arrival time" , @id = "arrival" })
+                                @*<input type="text" class="form-control timepicker" id="example" data-time-format="H:i" data-step="15" data-min-time="00:15" data-max-time="24:00" data-show-2400="true" />*@
+                                @Html.ValidationMessageFor(el => el.ArrivalTime, "", new { @class = "text-danger" })
+
+                                <span class="input_span">(24-hour clock)</span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Arrival flight number
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(el => el.ArrivalFlightNumber, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter arrival flight number" })
+                                @Html.ValidationMessageFor(el => el.ArrivalFlightNumber, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Arrival airport
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(el => el.ArrivalAirport, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter arrival airport" })
+                                @Html.ValidationMessageFor(el => el.ArrivalAirport, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Departure date
+                            </label>
+                            <div class="col-md-8">
+                                <div class="input-group date">
+                                    @Html.TextBoxFor(el => el.DepartureDate, Helper.View_DateFormat, new { @class = "form-control datetxtbox", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter departure date" , @id= "departuredate" })
+                                    @Html.ValidationMessageFor(el => el.DepartureDate, "", new { @class = "text-danger" })
+
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Departure time
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(el => el.DepartureTime, new { @class = "form-control timepicker", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter departure time" , @id= "departure" })
+                                @Html.ValidationMessageFor(el => el.DepartureTime, "", new { @class = "text-danger" })
+                                <span class="input_span">(24-hour clock)</span>
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Departure airport
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(el => el.DeparturelAirport, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter departure airport" })
+                                @Html.ValidationMessageFor(el => el.DeparturelAirport, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Estimated number of checked pages
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(el => el.NoCheckInBages, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Estimated number of checked pages" })
+                                @Html.ValidationMessageFor(el => el.NoCheckInBages, "", new { @class = "text-danger" })
+
+                                <span class="input_span">(necessary for transportation logistics)</span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-md-4 col-form-label">
+                                Comments
+                            </label>
+                            <div class="col-md-8">
+                                @Html.TextAreaFor(el => el.Comments, new { @class = "form-control datepicker", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter comments" , @rows="5"})
+                                @Html.ValidationMessageFor(el => el.Comments, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <button class="btn btn_org" type="submit" >NEXT STEP</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        @{
+            Html.RenderPartial("_FAQ");
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <link href="~/Content/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script type="text/javascript">
+        $('#arrival').timepicker({
+            timeFormat:'H:i',
+            step: 15 ,
+            dynamic:false,
+            dropdown:true,
+            scrollbar: true,
+        });
+
+        $('#departure').timepicker({
+            timeFormat: 'H:i',
+            step: 15,
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true,
+           
+        });
+
+        var arrival_time1 = "01.00am";
+        $("#arrival").change(function () {
+            arrival_time1 = $(this).val();
+            $('#departure').timepicker('option', 'minTime', arrival_time1); 
+        })
+      
+      
+        var dateToday = new Date();
+        var dates = $("#arrivaldate, #departuredate").datepicker({            
+            changeMonth: true,
+            changeYear: true,
+            onSelect: function (selectedDate) {
+                if (selectedDate != '') {
+                    $(".ui-state-default").removeClass("ui-state-highlight", "");
+                }
+                var option = this.id == "arrivaldate" ? "minDate" : "maxDate",
+                    instance = $(this).data("datepicker"),
+                    date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+                if ($("#arrivaldate").val() != "") {
+                    $(".arrivaldate").text('');
+                }
+                if ($("#departuredate").val() != "") {
+                    $(".departuredate").text('');
+                }
+                dates.not(this).datepicker("option", option, date);
+            }
+        });        
+
+
+    </script>
+
+}
+

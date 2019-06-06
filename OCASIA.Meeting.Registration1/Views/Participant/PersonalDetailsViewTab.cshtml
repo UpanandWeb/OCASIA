@@ -1,0 +1,32 @@
+﻿
+@model OCASIA.Meeting.DAL.ApplicationModels.UserDetailsModel
+@{
+   ViewBag.Title = "Personal Details"; 
+}
+
+
+
+<section>
+    <div class="container pt-4 pb-4 mb-4">
+
+        @using (Ajax.BeginForm("TravelDetailsView", "Participant", null, htmlAttributes: new { @class = "form" }))
+        {
+            @Html.AntiForgeryToken();
+            <div class="row">
+                @{
+                    Html.RenderPartial("_PersonalDetails");
+                }
+                
+            </div>
+            <div class="row">
+                <div class=" text-right">
+                    <button type="submit" class="btn btn_org ">NEXT STEP</button>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+
+
+

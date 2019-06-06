@@ -1,0 +1,20 @@
+﻿@{
+    OCASIA.Meeting.DAL.ApplicationModels.MeetingDetail details = ViewBag.MeetingDetails as OCASIA.Meeting.DAL.ApplicationModels.MeetingDetail;
+
+}
+@if (details != null)
+{
+    string FaqDescription = details.FaqDescription;
+    string FaqPath = details.FaqPath;
+    string EmailAddress = details.EmailAddress;
+    <div class="col-md-4">
+        <div class="side-box">
+            <div class="games-list arrow">
+                <h3 class="sidebar_title"><b>FAQ</b></h3>
+                <p><a href="@FaqPath">Click here</a> to download our registration guide</p>
+                <p>@FaqDescription</p>
+                <p>Email: <a href="mailto:@ViewBag.EmailAddress"> @EmailAddress</a></p>
+            </div>
+        </div>
+    </div>
+}

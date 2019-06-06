@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Confirmation";
+    bool IsAllFilledNotSubmitted = ViewBag.IsAllFilledNotSubmitted == null ? false : ViewBag.IsAllFilledNotSubmitted;
+}
+
+@using (Ajax.BeginForm("FormSubmit", "Participant", null, htmlAttributes: new { @class = "form", HttpMethod = "Post" }))
+{
+    <!-- content div -->
+    <!-- content div -->
+
+    <section>
+        <div class="container pt-4 pb-4 mb-4">
+            <div class="row">
+                <div class="col-md-8 content">
+                    <label>Thank you for registering online </label>
+                    <p>Please review your registration details and then click on the confirm button. This step is necessary to ensure that your registration is processed.</p>
+                    <p>
+                        A confirmation email will be sent out to you shortly after the validation
+                        of your inscription by OCA office
+                    </p>
+                    <p>Should you need to amend your registration, please update the information in this relevant section by clicking on the tabs above </p>
+                    <p>Then you have to return to this confirmation page and click on the "Confirm" button to ensure the changes are saved and transmitted to OCA office</p>
+                    @if (IsAllFilledNotSubmitted)
+                    {
+                    <div class="text-right">
+                        <hr style="border-top:0px;">
+                        <button type="submit" class="btn btn_org">Submitt</button>
+                    </div>
+                    }
+
+                </div>
+                @{
+                    Html.RenderPartial("_FAQ");
+                }
+            </div>
+        </div>
+    </section>
+    <!-- end content div -->
+    <!-- end content div -->
+
+
+}

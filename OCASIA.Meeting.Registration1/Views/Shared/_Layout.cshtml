@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - OCASIA Meeting Registration</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+
+    <section class="position-relative" >
+        <!-- top bar menu -->
+        <nav class="site-header sticky-top py-1 text-right">
+            <div class="container justify-content-between">
+
+                
+
+                @{
+                    Html.RenderPartial("_loginPartial");
+                }
+
+            </div>
+        </nav>
+        <!-- top bar menu -->
+        <!-- banner -->
+        <div class="home_banner">
+            @if (ViewBag.MeetingDetails != null && ViewBag.DonotShowBanner == null)
+            {
+                <img src="@ViewBag.MeetingDetails.PageBanner">
+            }
+        </div>
+    </section>
+
+    @if (Request.IsAuthenticated && ViewBag.DonotShowBanner == null)
+    {
+        Html.RenderPartial("RegistrationMenu");
+    }
+
+
+    <!-- end banner -->
+    <!-- BODY -->
+    <div class="body-content">
+        @RenderBody()
+
+    </div>
+    <!-- END BODY -->
+    <!--  FOOTER SECTION-->
+    <section id="footer-section">
+        <div class="bottom_footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 td-copyright text-left">
+
+                    </div>
+                    <div class="col-md-6 td-pb-span6 text-right">
+                        <div class=" justify-content-between bottom_menu">
+                            &copy; @DateTime.Now.Year  | All rights reserved
+                            @*<a class="py-1 d-none d-md-inline-block" href="@Url.Action("ValidateUrl","Participant")"> Home </a>|
+                                <a class="py-1 d-none d-md-inline-block" href="@Url.Action("MeetingDetailsView","Participant")"> Information Detail</a>|*@
+                            <!--   <a class="py-1 d-none d-md-inline-block" href="#"> Travel  &nbsp;</a>|
+                            <a class="py-1 d-none d-md-inline-block" href="#"> Event Location (Like Thailand GE)  &nbsp;</a>| -->
+                            @*<a class="py-1 d-none d-md-inline-block" href="@ViewBag.FaqPath"> FAQ </a>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END FOOTER SECTION-->
+    <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog img-preview_popup" role="document">
+            <div class="modal-content">
+                <button type="button" class="close text-right gallery-close-btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body">
+                    <div style="height:351px;">
+                        <img src="" id="img_preview_id" />
+                    </div>
+                </div>
+                <p style="text-align:center" id="img_preview_Caption" class="caption-text"></p>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        $(function () {
+            $(".datepicker").datepicker();
+        });
+        ShowGallerywithCaption = function (Path, Caption) {
+            $('#img_preview_id').attr("src", Path);
+            $('#img_preview_Caption').text(Caption);
+        }
+    </script>
+</body>
+</html>

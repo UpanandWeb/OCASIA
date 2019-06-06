@@ -1,0 +1,145 @@
+﻿@model OCASIA.Meeting.DAL.ApplicationModels.TravelDetailsModel
+@{
+    ViewBag.Title = "Travel Details";
+    bool IsPreviewScreen = ViewBag.IsPreviewScreen == null ? false : true;
+   
+}
+
+
+
+        <div class=" preview_text">
+            <h4 class="mt_0"> <span>Travel information</span> </h4>
+
+
+            <div class="col-md-12 preview_div">
+
+
+                <div class="col-md-6 ">
+                    <div>
+                        <label class="col-md-4 col-form-label">
+                            Arrival date
+                        </label>
+
+                        <div class="col-md-8">
+                            @Html.DisplayFor(el => el.ADate)
+                            @*@Html.DisplayFor(el => el.Comments)*@
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 ">
+                    <div>
+                    <label class="col-md-4 col-form-label">
+                        Arrival time
+                    </label>
+                    <div class="col-md-8">
+                        @Html.DisplayFor(el => el.ArrivalTime)
+                    </div>
+                </div>
+                </div>
+
+                <div class="col-md-6 ">
+                    <div>
+                        <label class="col-md-4 col-form-label">
+                            Arrival flight number
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(el => el.ArrivalFlightNumber)
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div>
+                        <label class="col-md-4 col-form-label">
+                            Arrival airport
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(el => el.ArrivalAirport)
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 ">
+                    <div>
+                        <label class="col-md-4 col-form-label">
+                            Departure date
+                        </label>
+                        <div class="col-md-8">
+                            <div class="input-group date">
+                                @Html.DisplayFor(el => el.DDate)
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 ">
+                    <div>
+                        <label class="col-md-4 col-form-label">
+                            Departure time
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(el => el.DepartureTime)
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6 ">
+                    <div>
+                        <label class="col-md-4 col-form-label">
+                            Departure airport
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(el => el.DeparturelAirport)
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 ">
+                    <div>
+                        <label class="col-md-4 col-form-label">
+                        Number of bagages
+                        </label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(el => el.NoCheckInBages)
+
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-6 ">
+                        <div>
+                            <label class="col-md-4 col-form-label">
+                                Hotel
+                            </label>
+                            <div class="col-md-8">
+                                @Html.DisplayFor(el => el.Hotel)
+
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                        <div class="col-md-6 ">
+                            <div>
+                                <label class="col-md-4 col-form-label">
+                                    Comments
+                                </label>
+                                <div class="col-md-8 text_area">
+                                    @Html.DisplayFor(el => el.Comments)
+
+                                </div>
+                            </div>
+                        </div>
+                 
+
+
+                </div>
+
+        </div>
+   
