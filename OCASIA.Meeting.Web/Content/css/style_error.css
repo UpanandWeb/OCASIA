@@ -1,0 +1,277 @@
+
+@font-face {
+    font-family: "fira-sans";
+    }
+
+body, html{
+	height:100%;
+}
+
+body {
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+    background-image: url(../../images/body-bg.jpg);
+    
+}
+
+h1{
+	font:700 8em 'FiraSans-Bold';
+	margin:0px;
+	color:#f40000;
+	opacity:0.8;
+	-o-opacity:0.8;
+	-moz-opacity:0.8;
+	-webkit-opacity:0.8;
+}
+
+h2{
+	font:400 1.8em 'fira-sans';
+	margin-top:10px;
+	color:#fff;
+	opacity:0.7;
+	-o-opacity:0.7;
+	-moz-opacity:0.7;
+	-webkit-opacity:0.7;
+}
+
+h1, h2{
+	transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+}
+
+h1:hover, h2:hover{
+	opacity:1;
+	-o-opacity:1;
+	-moz-opacity:1;
+	-webkit-opacity:1;
+}
+
+.image-background {
+    width: 100%;
+    height: 100%;
+   
+    background-image: url('../../img/bg-pagenot.png');
+}
+
+.page-text{
+	width:80%;
+	height:100%;
+	margin:auto;
+	padding:1px;
+	text-align:center;
+	height: -webkit-calc(100% - 2px);  /* para Chrome */
+	height: -moz-calc(100% - 2px);     /* para Firefox */
+	height: calc(100% - 2px);          /* para suporte nativo */
+}
+
+.page-text p{
+	font:300 1.3em 'FiraSans-Light';
+	color:#000;
+	opacity:0.8;
+	-o-opacity:0.8;
+	-moz-opacity:0.8;
+	-webkit-opacity:0.8;
+}
+
+.page-links{
+	width:80%;
+	height:100%;
+	margin:auto;
+	padding:40px;
+	text-align:center;
+	height: -webkit-calc(100% - 80px);  /* para Chrome */
+	height: -moz-calc(100% - 80px);     /* para Firefox */
+	height: calc(100% - 80px);          /* para suporte nativo */
+	
+	font:300 1.2em 'Raleway';
+}
+
+/** FORM STYLE **/
+
+.page-links input[type=text]{
+	width:80%;
+	height:30px;
+	border:solid 1px #F0F0F0;
+	font:300 0.9em 'Raleway';
+	padding:10px;
+	
+	transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+}
+
+.page-links input[type=text]:focus{
+	outline:0;
+	border:1px solid #0099FF;
+}
+
+.page-links input[type=submit]{
+	padding:15px;
+	font:300 0.9em 'Open Sans';
+	margin-left:-10px;
+	background-color:#4276ac;
+	color:#fff;
+	border:0px;
+}
+
+.page-links input{
+	z-index:999999;
+}
+
+/** SOCIAL LINKS **/
+
+.page-links p{
+	margin-top:40px;
+}
+
+.page-links img{
+	width:42px;
+	height:42px;
+	padding:2px;
+	
+	opacity:0.7;
+	-o-opacity:0.7;
+	-moz-opacity:0.7;
+	-webkit-opacity:0.7;
+	
+	transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+}
+
+.page-links img:hover{
+	opacity:1;
+	-o-opacity:1;
+	-moz-opacity:1;
+	-webkit-opacity:1;
+}
+
+/** BUTTON BACK HOME **/
+
+.back-home{
+	font-family:'FiraSans-Light';
+	text-decoration:none;
+	color:#fff;
+	padding:10px;
+	border-radius:5px;
+	opacity:1;
+	-o-opacity:1;
+	-moz-opacity:1;
+	-webkit-opacity:1;
+	
+	transition: all 0.4s;
+	-o-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+	
+	border:solid 1px #E0E0E0;
+}
+
+.back-home:hover{
+	background-color:#03569e;
+	color:#F8F8F8;
+}
+
+
+
+
+/** RESPONSIVE AREA **/
+
+@media (max-width: 800px){
+
+	h1{
+	font:700 7em 'Open Sans';
+	}
+	
+	.image-background{
+	height:60%;
+	}
+	
+	.page-text{
+	width:90%;
+	padding:1px;
+	height: -webkit-calc(100% - 2px);  /* para Chrome */
+	height: -moz-calc(100% - 2px);     /* para Firefox */
+	height: calc(100% - 2px);          /* para suporte nativo */
+	}
+	
+	.page-links p{
+	padding-bottom:25px;
+	}
+
+}
+
+@media (max-width: 660px){
+
+	h1{
+	font:700 6.5em 'Open Sans';
+	}
+	
+	.image-background{
+	height:75%;
+	}
+	
+}
+
+@media (max-width: 480px){
+
+	h1{
+	font:700 5.5em 'Open Sans';
+	}
+	
+	h2{
+	font:400 1.5em 'Open Sans';
+	}
+	
+	.image-background{
+	height:90%;
+	}
+	
+	.page-text{
+	width:90%;
+	}
+	
+}
+
+@media (max-width: 320px){
+
+	h1{
+	font:700 4.5em 'Open Sans';
+	}
+	
+	h2{
+	font:400 1.3em 'Open Sans';
+	}
+	
+	.image-background{
+	height:55%;
+	}
+	
+	.page-text{
+	width:100%;
+	}
+	
+	.page-links input[type=text]{
+	width:50%;
+	height:25px;
+	padding:10px;
+	}
+	
+	.page-links input[type=submit]{
+	padding:13px;
+	font:300 0.9em 'Open Sans';
+	margin-left:-10px;
+	background-color:#6699FF;
+	color:#fff;
+	border:0px;
+	}
+	
+}
+
+
+
