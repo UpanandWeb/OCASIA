@@ -1,0 +1,63 @@
+﻿@model OCASIA.Meeting.DAL.RegisterViewModel
+@using OCASIA.Meeting.DAL.ApplicationModels;
+@{
+    var varmodel = (List<OCASIA.Meeting.DAL.ApplicationUser>)ViewBag.Users;
+    Layout = null;
+}
+<div class="col-md-12">
+    <div class="box box-black">
+        <div class="box-title">
+            <h3>
+                <i class="fa fa-users"></i> Manage Users
+            </h3>
+            <div class="box-tool">
+
+            </div>
+        </div>
+        <div class="box-content">
+            @Html.Partial("_Msg")
+            <div id="StatusID">  </div>
+            <div class="btn-toolbar pull-left">
+                <div class="btn-group">
+                    @Ajax.RawActionLink("<i class='fa fa-plus'></i> Add", "AddUser", "Admin", null, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "AddID", LoadingElementId = "LoadingID", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-info btn-md" })
+                </div>
+            </div>
+            <br /><br />
+            <div class="table-responsive">
+                <table class="table table-advance" id="table1" style="margin-bottom: 70px !important;">
+                    <thead>
+                        <tr>
+                            <th data-class="expand">Username</th>
+                            <th data-class="expand">Email</th>
+                            <th data-class="expand">Role</th>
+                            <th data-class="expand">Created By</th>
+                            <th data-class="expand">Created Date</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="">
+                        @if (varmodel != null && varmodel.Count != 0)
+                        {
+                            foreach (var item in varmodel)
+                            {
+                                <tr class="table-flag-blue">
+                                    <td>@item.UserName.SubStringBasedOnCount(30)</td>
+                                    <td>@item.Email.SubStringBasedOnCount(30)</td>
+                                    <td>@item.RoleCustoms.RoleName</td>
+                                    <td>@User.Identity.Name.GetPartialName()</td>
+                                    <td>@item.CreatedDate.ToShortDateString()</td>
+                                    <td class="text-center">
+                                        @Ajax.RawActionLink("<i class='fa fa-edit'></i> Edit", "EditUser", "Admin", new { UserId = item.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "EditID", LoadingElementId = "LoadingID", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-sm btn-primary" })
+                                        @Ajax.RawActionLink("<i class='fa fa-times'></i> Delete", "DeleteUser", "Admin", new { UserId = item.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "DeleteID" , LoadingElementId = "LoadingID",  InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-sm btn-danger" })
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

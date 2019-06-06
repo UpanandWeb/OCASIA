@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Meeting";
+}
+<div id="AddID">  </div>
+<div id="EditID">   </div>
+<div id="DeleteID">   </div>
+<div id="ExecuteID"></div>
+<div id="StatusID"></div>
+<div id="TrashID"></div>
+<div class="row" id="mymodal">
+    <div id="UpdateID">
+        @Html.Partial("_BindMeetings")
+    </div>
+</div>
+<style>
+    .table-advance tr td:last-child {
+        width: 240px !important;
+    }
+</style>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="~/assets/data-tables/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="~/assets/data-tables/datatables.min.js"></script>
+    <script type="text/javascript" src="~/assets/data-tables/bootstrap3/dataTables.bootstrap.js"></script>
+    <script type="text/javascript">
+        $('#table1').DataTable();
+        ModalClose123 = function () {
+            $("#AddID").html('');
+        }
+        ModalClose1 = function () {
+            $("#TrashID").html('');
+        }
+        ModalClose2 = function () {
+            $("#EditID").html('');
+        }
+
+        ModalClose3 = function () {
+            $("#DeleteID").html('');
+        }
+
+        ModalClose12 = function () {
+            $("#ExecuteID").html('');
+        }
+
+        UpdateIsPublish = function (MeetingID) {
+            var IsPublish = $('#' + MeetingID).is(':checked');
+            if (MeetingID != 0 && IsPublish != null) {
+                $.post("@Url.Action("UpdateIsPublishbyMeetingID", "Admin")", { "MeetingID": MeetingID, IsPublish: IsPublish }, function (response) {
+                    if (IsPublish == true) {
+                        $('#' + MeetingID).attr('title', 'Active')
+                    } if (IsPublish == false) {
+                        $('#' + MeetingID).attr('title', 'Inactive')
+                    }
+                    $("#StatusID").show();
+                    $("#StatusID").html('<div id="Msg" class="autohide" style="display: block;"><div class="alert alert-success alert-dismissable"><i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> Publish status updated successfully !</div></div>');
+                    setTimeout('$(".autohide").hide()', 5000);
+                });
+            }
+        }
+
+        UpdateIsAllowRegistration = function (MeetingID) {
+            var IsAllowRegistration = $('#' + MeetingID).is(':checked');            
+            if (MeetingID != 0 && IsAllowRegistration != null) {
+                $.post("@Url.Action("UpdateIsAllowRegistration", "Admin")", { "MeetingID": MeetingID, IsAllowRegistration: IsAllowRegistration }, function (response) {                    
+                    //if (IsAllowRegistration == true) {
+                    //    $('#Status_AllowRegistration').text("Yes");
+                    //} if (IsAllowRegistration == false) {
+                    //    $('#Status_AllowRegistration').text("No");
+                    //}
+                    $("#StatusID").show();
+                    $("#StatusID").html('<div id="Msg" class="autohide" style="display: block;"><div class="alert alert-success alert-dismissable"><i class="fa fa-check"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> Registration status updated successfully !</div></div>');
+                    setTimeout('$(".autohide").hide()', 5000);
+                });
+        }
+        }
+    </script>
+}

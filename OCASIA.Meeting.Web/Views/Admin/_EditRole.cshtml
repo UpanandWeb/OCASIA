@@ -1,0 +1,143 @@
+﻿@model OCASIA.Meeting.DAL.RoleCustom
+
+@if (Model != null)
+{
+    var Modules = (List<OCASIA.Meeting.DAL.Module>)ViewBag.Modules;
+    var PermissionLevels = (List<OCASIA.Meeting.DAL.PermissionLevel>)ViewBag.PermissionLevels;
+    var RoleBasedPrivileges = (List<OCASIA.Meeting.DAL.RoleBasedPrivilege>)ViewBag.RoleBasedPrivilege;
+    string checkbox = "";
+    //using (Ajax.BeginForm("EditRole", "Admin", null, new AjaxOptions { UpdateTargetId = "UpdateID", InsertionMode = InsertionMode.Replace, LoadingElementId = "LoadingID", OnComplete = "ModalClose2()", OnSuccess = "ModalClose()" }, new { }))
+    //{
+    @Html.HiddenFor(m => m.RoleCustomID)
+    <div class="modal fade in" id="myModal" role="dialog" aria-hidden="false" style="display: block;">
+        <div class="modal-dialog" style="width:930px !important;">
+            <!-- Modal content-->
+            <div class="modal-content modal-add">
+                <div class="modal-header">
+                    <button type="button" class="close" onclick="ModalClose2()">&times;</button>
+                    <h4 class="modal-title">Edit Role</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal" action="">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4"> Role Name:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.RoleName, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Role Name", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(model => model.RoleName, null, new { @class = "text-danger RoleName" })
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-advance" id="table12">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Module Name
+                                        </th>
+                                        <th style="position:absolute;padding-left:0px;border-bottom:none !important">
+                                            All
+                                            <label class="control control-checkbox">
+                                                <input type="checkbox" id="chkall" name="chkall" />
+                                                <span class="control_indicator"></span>
+                                            </label>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var g in Modules.OrderBy(a => a.ModuleID))
+                                    {
+                                        <tr>
+                                            <td>
+                                                @g.DisplayModuleName
+                                            </td>
+                                            @foreach (var item in PermissionLevels.Where(a => a.Permission == "All"))
+                                            {
+                                                bool chckbox = RoleBasedPrivileges.Where(a => a.ModuleID == g.ModuleID).Select(a => a.IsActive).FirstOrDefault();
+                                                checkbox = @chckbox == true ? "checked" : "";
+
+                                                <td style="position:relative;text-align:center !important">
+                                                    <label class="control control-checkbox">
+                                                        <input type="checkbox" id="@g.ModuleID" class="Addprivilegeschk" @checkbox name="@g.ModuleID" value="@g.Group" /><i></i>&nbsp;
+                                                        <span class="control_indicator"></span>
+                                                    </label>
+                                                </td>
+
+                                            }
+                                        </tr>
+
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="AddRolebasedprivileges()"> Update</button>
+                        <button type="button" class="btn btn-default" onclick="ModalClose2()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    //}
+}
+<style>
+    #mymodal {
+        opacity: 0.5;
+    }
+</style>
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript" src="~/assets/data-tables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="~/assets/data-tables/datatables.min.js"></script>
+<script type="text/javascript" src="~/assets/data-tables/bootstrap3/dataTables.bootstrap.js"></script>
+
+<script type="text/javascript">
+    ModalClose = function () {
+        $("#EditID").html('');
+        $('#table1').DataTable({
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1]
+            }]
+        });
+        setTimeout('$(".autohide").hide()', 5000);
+    }
+
+    AddRolebasedprivileges = function () {
+        var RoleName = $("#RoleName").val();
+        if (RoleName != null && RoleName != "") {
+            var CheckedmodulesAndPermissions = [];
+            $('.Addprivilegeschk').each(function () {
+                if (this.checked) {
+                    var checkedModuleid = $(this).attr("id");
+                    var Group = $(this).val();
+                    CheckedmodulesAndPermissions.push(checkedModuleid + '_' + Group);
+                }
+            })
+            if (CheckedmodulesAndPermissions != null) {
+                $.ajax({
+                    url: "@Url.Action("AddRolebasedprivileges", "Admin")",
+                    type: "POST",
+                    data: { CheckedmodulesAndPermissions: CheckedmodulesAndPermissions, RoleName: RoleName },
+                    success: function (response) {
+                        $("#UpdateID").html(response);
+                        ModalClose();
+                    }
+                });
+            }
+        } else {
+            $(".RoleName").html('Role filed is required !')
+            $("#RoleName").focus();
+            e.preventDefault();
+        }
+    }
+
+    $("#chkall").change(function () {
+        var chkall = $('#chkall').is(':checked');
+        if (chkall == true) {
+            $(".Addprivilegeschk").prop('checked', true);
+        } else {
+            $(".Addprivilegeschk").prop('checked', false);
+        }
+    });
+</script>

@@ -1,0 +1,67 @@
+﻿@model OCASIA.Meeting.DAL.Meeting
+
+@if (Model != null)
+{
+    using (Ajax.BeginForm("DeleteMeetingConfirm", "Admin", new { MeetingID = Model.MeetingID }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "UpdateID", LoadingElementId = "LoadingID", OnComplete = "ModalClose3()", OnSuccess = "ModalClose()" }))
+    {
+        <div class="modal fade in" id="myModal" role="dialog" aria-hidden="false" style="display: block;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="ModalClose3()">&times;</button>
+                        <h4 class="modal-title">Delete Meeting Confirm ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal" action="">
+                            <div class="col-sm-12 text-center">
+                                <section class="col-sm-10">
+                                    Are you sure want to delete this meeting "<strong>@Model.MeetingName </strong>" Permanently?
+                                </section>
+                                <section class="col-sm-10">
+                                    <b>If you delete this, then associated information will also get deleted.</b>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"> Delete</button>
+                        <button type="button" class="btn btn-default" onclick="ModalClose3()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<style>
+    .modal-dialog {
+        position: absolute;
+        z-index: 9999999;
+        margin: 0px auto;
+        left: 32%;
+    }
+
+    #mymodal {
+        opacity: 0.5;
+    }
+</style>
+
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript" src="~/assets/data-tables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="~/assets/data-tables/datatables.min.js"></script>
+<script type="text/javascript" src="~/assets/data-tables/bootstrap3/dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+    ModalClose = function () {
+        $("#DeleteID").html('');
+        $('#table1').DataTable({
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1]
+            }], "order": [[4, "desc"]]
+        });
+        setTimeout('$(".autohide").hide()', 5000);
+    }
+</script>
+
+

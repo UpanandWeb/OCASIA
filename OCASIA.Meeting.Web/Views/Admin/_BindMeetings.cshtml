@@ -1,0 +1,82 @@
+﻿@using OCASIA.Meeting.DAL.ApplicationModels;
+@{
+    var Model = (List<MeetingViewModel>)ViewBag.GetMeetingDetails;
+    Layout = null;
+}
+<div class="col-md-12">
+    <div class="box box-black">
+        <div class="box-title">
+            <h3>
+                <i class="fa fa-users"></i> Meeting
+            </h3>
+            <div class="box-tool">
+
+            </div>
+        </div>
+        <div class="box-content">
+            @Html.Partial("_Msg")
+            <div id="StatusID">  </div>
+            <div class="btn-toolbar pull-left">
+                <div class="btn-group">
+                    @Ajax.RawActionLink("<i class='fa fa-plus'></i> Add", "AddMeeting", "Admin", null, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "AddID", LoadingElementId = "LoadingID", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-info btn-md" })
+                </div>
+            </div>
+            <br /><br />
+            <div class="table-responsive">
+                <table class="table table-advance" id="table1" style="margin-bottom: 70px !important;">
+                    <thead>
+                        <tr>
+                            <th data-class="expand">Meeting_Name</th>
+                            <th data-class="expand">Abbreviation</th>
+                            <th data-class="expand">E StartDate</th>
+                            <th data-class="expand">E EndDate</th>
+                            <th data-class="expand">A StartDate</th>
+                            <th data-class="expand">A EndDate</th>
+                            <th data-class="expand">Created By</th>
+                            <th data-class="expand">Allow_Registration</th>
+                            <th data-class="expand">Is Publish</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Count != 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr class="table-flag-blue">                                   
+                                    <td>@item.MeetingName</td>
+                                    <td>@item.Abbreviation</td>
+                                    <td>@item.EventStartDate.ToShortDateString()</td>
+                                    <td>@item.EventEndDate.Value.ToShortDateString()</td>
+                                    <td>@item.ApplicationStartDate.Value.ToShortDateString()</td>
+                                    <td>@item.EventEndDate.Value.ToShortDateString()</td>
+                                    <td>@User.Identity.Name.GetPartialName()</td>
+                                    <td class="text-center" style="position:relative;text-align:center !important">
+                                        <label class="radio radiobtn" >
+                                            <input type="radio" id="@item.MeetingID" name="radio_MeetingID" onclick="UpdateIsAllowRegistration('@item.MeetingID')" checked="@item.AllowRegistration" /> 
+                                            @*@{ 
+                                                string status = item.AllowRegistration == true ? "<span id='Status_AllowRegistration'>Yes</span>" : "<span id='Status_AllowRegistration'>No</span>";
+                                                    }
+                                                      @Html.Raw(@status)*@                         
+                                        </label>
+                                    </td>                                    
+                                    <td class="text-center" style="position:relative;text-align:center !important">
+                                        <label class="control control-checkbox">
+                                            <input type="checkbox" id="@item.MeetingID" onclick="UpdateIsPublish('@item.MeetingID')" checked="@item.IsPublish" />
+                                            <span class="control_indicator"></span>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        @Ajax.RawActionLink("<i class='fa fa-edit'></i> Edit", "EditMeeting", "Admin", new { MeetingID = item.MeetingID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "EditID", LoadingElementId = "LoadingID", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-sm btn-primary" })
+                                        @Ajax.RawActionLink("<i class='fa fa-times'></i> Delete", "DeleteMeeting", "Admin", new { MeetingID = item.MeetingID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "DeleteID", LoadingElementId = "LoadingID", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-sm btn-danger" })
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

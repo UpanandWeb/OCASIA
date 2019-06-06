@@ -1,0 +1,133 @@
+﻿@model OCASIA.Meeting.DAL.RegisterViewModel
+@{
+    var roles = (List<OCASIA.Meeting.DAL.RoleCustom>)ViewBag.Roles;
+}
+@using (Ajax.BeginForm("AddUser", "Admin", null, new AjaxOptions { UpdateTargetId = "UpdateID", InsertionMode = InsertionMode.Replace, LoadingElementId = "LoadingID", OnComplete = "ModalClose1()", OnSuccess = "ModalClose()" }, new { @class = "" }))
+{
+    <div class="modal fade in" id="myModal" role="dialog" aria-hidden="false" style="display: block;">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" onclick="ModalClose123()">&times;</button>
+                    <h4 class="modal-title">Add User</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal" action="">
+                        <div class="form-group emailicon">
+                            <label class="control-label col-sm-4">Email<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-6">
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Email", @Value = "" })
+                                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger Email" })
+                                <span class="SuccessEmail"></span>
+                            </div>
+                        </div>
+                        @if (ViewBag.Roles != null)
+                        {
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Select Role<span class="text-danger">*</span>:</label>
+                                <div class="col-sm-6">
+                                    @Html.DropDownListFor(model => model.RoleCustomID, new SelectList(ViewBag.Roles, "RoleCustomID", "RoleName"), "--Select--", new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off" }) <i></i>
+                                    @Html.ValidationMessageFor(model => model.RoleCustomID, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }                        
+                        <div class="form-group">
+                            <label class="control-label col-sm-4"> Password<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-6">
+                                @Html.PasswordFor(model => model.Password, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Password", @Value = "" })
+                                @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4"> Confirm Password<span class="text-danger">*</span>:</label>
+                            <div class="col-sm-6">
+                                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Confirm Password", @Value = "" })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"> Add</button>
+                        <button type="button" class="btn btn-default" onclick="ModalClose123()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<style>
+    #mymodal {
+        opacity: 0.5;
+    }
+
+    .emailicon {
+        position: relative;
+    }
+
+    .SuccessEmail {
+        position: absolute;
+        top: 4px;
+        right: 15px;
+    }
+</style>
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript" src="~/assets/data-tables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="~/assets/data-tables/datatables.min.js"></script>
+
+<script type="text/javascript" src="~/assets/data-tables/bootstrap3/dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+    ModalClose = function () {
+        $("#AddID").html('');
+        $('#table1').DataTable({
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1]
+            }], "order": [[4, "desc"]]
+        });
+        setTimeout('$(".autohide").hide()', 5000);
+    }
+
+    @*$("#Email").blur(function () {
+        $(".Email").html('');
+        $(".SuccessEmail").html('');
+        $(".SuccessEmail").removeAttr('title', '');
+        var email = $(this).val();
+        if (email) {
+            $.post("@Url.Action("IsAvailableUserAndEmail", "Admin")", { "Email": email }, function (responseText) {
+                if (responseText.Status == "1") {
+                    $('#Email').css('border', '0.5px solid #8a6d3b');
+                    $(".SuccessEmail").html('');
+                    $(".SuccessEmail").removeAttr('title', '');
+                    $(".Email").html(responseText.ErrorMessage);
+                    $(".Email").show();
+                    $(".SuccessEmail").html('<i class="fa fa-times-circle-o fa-2x text-warning"></i>');
+                    $(".SuccessEmail").attr('title', 'Registered Email');
+
+                } if (responseText.Status == "0") {
+                    $('#Email').css('border', '0.5px solid #3c763d');
+                    $(".SuccessEmail").html('');
+                    $(".SuccessEmail").removeAttr('title', '');
+                    $(".SuccessEmail").html('<i class="fa fa-check-circle-o fa-2x text-success"></i>');
+                    $(".SuccessEmail").attr('title', 'Not Registered Email');
+                }
+            });
+
+        }
+    });*@
+    $("#RoleCustomID").change(function () {
+        $(".Role").html('');
+    });
+
+    $("#RoleCustomID").change(function () {
+        RoleCustomID = $("#RoleCustomID").val();;
+        if (RoleCustomID == 19) {
+            $("#Countries").show();
+        } else {
+            $("#Countries").hide();
+        }
+    });
+
+</script>

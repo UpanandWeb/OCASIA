@@ -1,0 +1,50 @@
+﻿@{
+    var varmodel = (List<OCASIA.Meeting.DAL.RoleCustom>)ViewBag.Roles;
+    Layout = null;
+}
+
+
+<div class="col-md-12">
+    <div class="box box-black">
+        <div class="box-title">
+            <h3><i class="fa fa-tasks"></i></i>Manage Roles</h3>
+            <div class="box-tool">
+                
+            </div>
+        </div>
+        <div class="box-content">
+            @Html.Partial("_Msg")
+            <div class="btn-toolbar pull-left">
+                <div class="btn-group">
+                    @Ajax.RawActionLink("<i class='fa fa-plus'></i> Add", "AddRole", "Admin", null, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "AddID",LoadingElementId = "LoadingID",  InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-info btn-md" })
+                </div>
+            </div>
+            <br /><br />
+            <div class="table-responsive">
+                <table class="table table-advance" id="table1">
+                    <thead>
+                        <tr>
+                            <th data-class="expand">Role Name</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="">
+                        @if (varmodel!=null && varmodel.Count != 0)
+                        {
+                            foreach (var item in varmodel)
+                            {
+                                <tr class="table-flag-blue">
+                                    <td>@item.RoleName</td>
+                                    <td class="text-center">
+                                        @Ajax.RawActionLink("<i class='fa fa-edit'></i> Edit", "EditRole", "Admin", new { RoleCustomID = item.RoleCustomID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "EditID" , LoadingElementId = "LoadingID",  InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-sm btn-primary" })
+                                        @*@Ajax.RawActionLink("<i class='fa fa-times'></i> Delete", "DeleteRole", "Admin", new { RoleCustomID = item.RoleCustomID }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "DeleteID" , LoadingElementId = "LoadingID",  InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-sm btn-danger" })*@
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

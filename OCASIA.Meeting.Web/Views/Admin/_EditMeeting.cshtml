@@ -1,0 +1,662 @@
+﻿@model OCASIA.Meeting.DAL.ApplicationModels.MeetingViewModel
+@using (Ajax.BeginForm("EditMeeting", "Admin", null, new AjaxOptions { UpdateTargetId = "UpdateID", InsertionMode = InsertionMode.Replace, LoadingElementId = "LoadingID", OnComplete = "ModalClose2()", OnSuccess = "ModalClose()" }))
+{
+    @Html.Hidden("HttpPostedFilBase64")
+    @Html.Hidden("FileName")
+    @Html.Hidden("HttpPostedVFilBase64")
+    @Html.Hidden("VFileName")
+    @Html.Hidden("HttpPostedSFilBase64")
+    @Html.Hidden("SFileName")
+    @Html.Hidden("HttpPostedDesc1FilBase64")
+    @Html.Hidden("Desc1FileName")
+    @Html.Hidden("HttpPostedDesc2FilBase64")
+    @Html.Hidden("Desc2FileName")
+    @Html.Hidden("HttpPostedDesc3FilBase64")
+    @Html.Hidden("Desc3FileName")
+    @Html.Hidden("HttpPostedDesc4FilBase64")
+    @Html.Hidden("Desc4FileName")
+    @Html.HiddenFor(m => m.MeetingID)
+    @Html.HiddenFor(m => m.RegistrationTabID)
+    @Html.HiddenFor(m => m.RegistrationTabs)
+    @Html.AntiForgeryToken()
+    <div class="modal fade in" id="myModal" role="dialog" aria-hidden="false" style="display: block;">
+        <div class="modal-dialog" style="width:930px !important;">
+            <!-- Modal content-->
+            <div class="modal-content modal-add-height" style="height:600px !important;">
+                <div class="modal-header">
+                    <button type="button" class="close" onclick="ModalClose2()">&times;</button>
+                    <h4 class="modal-title">Edit Meeting</h4>
+                </div>
+                <div class="modal-body model_content">
+                    <div class="form-horizontal">
+                        <h1>Meeting Basic Details</h1>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Meeting Name<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.MeetingName, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Meeting Name" })
+                                        @Html.ValidationMessageFor(model => model.MeetingName, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Abbreviation<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.Abbreviation, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Abbreviation" })
+                                        @Html.ValidationMessageFor(model => model.Abbreviation, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">Meeting Description<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-10">
+                                        @Html.TextAreaFor(model => model.MeetingDescription, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @rows = "6", @placeholder = "Enter Meeting Description" })
+                                        @Html.ValidationMessageFor(model => model.MeetingDescription, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Event StartDate<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.EventStartDate, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Event StartDate" })
+                                        @Html.ValidationMessageFor(model => model.EventStartDate, null, new { @class = "text-danger EventStartDate" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Event EndDate<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.EventEndDate, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Event EndDate" })
+                                        @Html.ValidationMessageFor(model => model.EventEndDate, null, new { @class = "text-danger EventEndDate" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Application StartDate<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.ApplicationStartDate, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Application StartDate" })
+                                        @Html.ValidationMessageFor(model => model.ApplicationStartDate, null, new { @class = "text-danger ApplicationStartDate" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Application EndDate<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.ApplicationEndDate, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Application EndDate" })
+                                        @Html.ValidationMessageFor(model => model.ApplicationEndDate, null, new { @class = "text-danger ApplicationEndDate" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Select banner image<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-8">
+                                        <input type="file" id="uploadfile" name="uploadfile" value="@Model.PageBannerPath" accept=".jpg, .jpeg, .png, .gif" />
+                                        <span class="text-danger uploadfileerror"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (Model.Description1PicturePath != null)
+                            {
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4"> Image Preview:</label>
+                                        <div class="col-sm-8">
+                                            <img id="ImagePreview" class="img-thumbnail" src="@Model.PageBannerPath.Replace("~", "..")" style="height:175px; width:175px;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4 ImagePreview" style="display:none"> Image Preview:</label>
+                                        <div class="col-sm-8">
+                                            <img id="ImagePreview" class="img-thumbnail" src="" style="height:175px; width:175px;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">Faq Description<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-10">
+                                        @Html.TextAreaFor(model => model.FaqDescription, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @rows = "6", @placeholder = "Enter Faq Description" })
+                                        @Html.ValidationMessageFor(model => model.FaqDescription, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">Upload Faq PDF<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" id="uploadvfile" name="uploadvfile" accept=".pdf" value="@Model.FaqPath" />
+                                        <span class="uploadvfileerror">@Model.FaqPath</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">Upload Schedule PDF<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" id="uploadsfile" name="uploadsfile" accept=".pdf" value="@Model.SchedulePath" />
+                                        <span class="uploadsfileerror">@Model.SchedulePath</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Offical Email<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.OfficalEmail, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Offical Email" })
+                                        @Html.ValidationMessageFor(model => model.OfficalEmail, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Address<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Address" })
+                                        @Html.ValidationMessageFor(model => model.Address, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Phone Number<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Phone Number" })
+                                        @Html.ValidationMessageFor(model => model.PhoneNumber, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Fax Number<span class="text-danger">*</span>:</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(model => model.FaxNumber, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @placeholder = "Enter Fax Number" })
+                                        @Html.ValidationMessageFor(model => model.FaxNumber, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="select" class="col-sm-3 col-lg-4 control-label">Registration Tabs: :</label>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownList("RegistrationTabs1", new SelectList(ViewBag.RegistrationTabList, "ID", "Name"), new { @class = "form-control", @autofocus = "autofocus", @multiple = "multiple"})                                        
+                                        @*@Html.ValidationMessageFor(model => model.RegistrationTabs, null, new { @class = "text-danger" })*@
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <div class="col-md-12">
+                                <div id="Info_Tab">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                        Information Tab Details
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOne" class="panel-collapse collapse in ">
+                                                <div class="panel-body">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Basic Description<span class="text-danger">*</span>:</label>
+                                                            <div class="col-sm-10">
+                                                                @Html.TextAreaFor(model => model.BasicDescription, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @rows = "6", @placeholder = "Enter Basic Description" })
+                                                                @Html.ValidationMessageFor(model => model.BasicDescription, null, new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Description1<span class="text-danger">*</span>:</label>
+                                                            <div class="col-sm-10">
+                                                                @Html.TextAreaFor(model => model.Description1, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @rows = "6", @placeholder = "Enter Description1" })
+                                                                @Html.ValidationMessageFor(model => model.Description1, null, new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Select image<span class="text-danger">*</span>:</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="file" id="uploadfile1" name="uploadfile" accept=".jpg, .jpeg, .png, .gif"  value="@Model.Description1PicturePath"/>
+                                                                <span class="text-danger uploadfileerror1"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @if (Model.Description1PicturePath != null)
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-sm-2 ImagePreview1"> Image Preview:</label>
+                                                                <div class="col-sm-10">
+                                                                    <img id="ImagePreview1Desc" class="" src="@Model.Description1PicturePath.Replace("~", "..")" style="height:175px; width:175px;" alt="" title="" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-sm-2 ImagePreview1" style="display:none"> Image Preview:</label>
+                                                                <div class="col-sm-10">
+                                                                    <img id="ImagePreview1Desc" class="" src="" style="height:175px; width:175px;" alt="" title="" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Description2:</label>
+                                                            <div class="col-sm-10">
+                                                                @Html.TextAreaFor(model => model.Description2, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @rows = "6", @placeholder = "Enter Description2" })
+                                                                @Html.ValidationMessageFor(model => model.Description2, null, new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Select image:</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="file" id="uploadfile2" name="uploadfile" accept=".jpg, .jpeg, .png, .gif" />
+                                                                <span class="text-danger uploadfileerror2"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @if (Model.Description2PicturePath != null)
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-sm-2 ImagePreview2"> Image Preview:</label>
+                                                                <div class="col-sm-10">
+                                                                    <img id="ImagePreview2Desc" class="" src="@Model.Description2PicturePath.Replace("~", "..")" style="height:175px; width:175px;" alt="" title="" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-sm-2 ImagePreview2" style="display:none"> Image Preview:</label>
+                                                                <div class="col-sm-10">
+                                                                    <img id="ImagePreview2Desc" class="" src="" style="height:175px; width:175px;" alt="" title="" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Description3:</label>
+                                                            <div class="col-sm-10">
+                                                                @Html.TextAreaFor(model => model.Description3, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @rows = "6", @placeholder = "Enter Description3" })
+                                                                @Html.ValidationMessageFor(model => model.Description3, null, new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Select image:</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="file" id="uploadfile3" name="uploadfile" accept=".jpg, .jpeg, .png, .gif" />
+                                                                <span class="text-danger uploadfileerror3"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @if (Model.Description3PicturePath != null)
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-sm-2 ImagePreview3"> Image Preview:</label>
+                                                                <div class="col-sm-10">
+                                                                    <img id="ImagePreview3Desc" class="" src="@Model.Description3PicturePath.Replace("~", "..")" style="height:175px; width:175px;" alt="" title="" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-sm-2 ImagePreview3" style="display:none"> Image Preview:</label>
+                                                                <div class="col-sm-10">
+                                                                    <img id="ImagePreview3Desc" class="" src="" style="height:175px; width:175px;" alt="" title="" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Description4:</label>
+                                                            <div class="col-sm-10">
+                                                                @Html.TextAreaFor(model => model.Description4, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off", @rows = "6", @placeholder = "Enter Description4" })
+                                                                @Html.ValidationMessageFor(model => model.Description4, null, new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Select image:</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="file" id="uploadfile4" name="uploadfile" accept=".jpg, .jpeg, .png, .gif" />
+                                                                <span class="text-danger uploadfileerror4"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @if (Model.Description4PicturePath != null)
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-sm-2 ImagePreview4"> Image Preview:</label>
+                                                                <div class="col-sm-10">
+                                                                    <img id="ImagePreview4Desc" class="" src="@Model.Description4PicturePath.Replace("~", "..")" style="height:175px; width:175px;" alt="" title="" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="control-label col-sm-2 ImagePreview4" style="display:none"> Image Preview:</label>
+                                                                <div class="col-sm-10">
+                                                                    <img id="ImagePreview4Desc" class="" src="" style="height:175px; width:175px;" alt="" title="" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary"> Update </button>
+                                    <button type="button" class="btn btn-default" onclick="ModalClose2()">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    #mymodal {
+        opacity: 0.5;
+    }
+</style>
+@Scripts.Render("~/bundles/jqueryval")
+<link href="~/Content/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script type="text/javascript" src="~/assets/data-tables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="~/assets/data-tables/bootstrap3/dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+    var RegistrationTabID = $("#RegistrationTabID").val();
+    if (RegistrationTabID == "1") {
+        $("#Info_Tab").show();
+        $("#RegistrationTabs1").val('1')
+    } else {
+        $("#Info_Tab").hide();
+    }   
+        
+    //var RegistrationTabs = $("#RegistrationTabs").val();  
+    //$('#RegistrationTabs1').val(RegistrationTabs);
+    //var RegistrationTabs1 = $("#RegistrationTabs").val()[0];
+    //var RegistrationTabs2 = $("#RegistrationTabs").val()[2];
+    //var RegistrationTabs3 = $("#RegistrationTabs").val()[4];
+    //var RegistrationTabs4 = $("#RegistrationTabs").val()[6];
+    //var RegistrationTabs5 = $("#RegistrationTabs").val()[8];
+    //if (RegistrationTabs1 == "1" && RegistrationTabs2 == "2")
+    //{
+    //    $('#RegistrationTabs1').val(['1', '2']);
+    //}
+    //if (RegistrationTabs3 == "3" && RegistrationTabs4 == "4") {
+    //    $('#RegistrationTabs1').val(['1', '2']);
+    //}
+    //if (RegistrationTabs1 == "1" && RegistrationTabs2 == "2" && RegistrationTabs3 == "3" && RegistrationTabs4 == "4" && RegistrationTabs5 =="5") {
+    //    $('#RegistrationTabs1').val(['1', '2', '3', '4', '5']);
+    //}
+    //}    
+
+    ModalClose = function () {
+        $("#AddID").html('');
+        $('#table1').DataTable();
+        setTimeout('$(".autohide").hide()', 5000);
+        $("body").removeClass("modal-open", "");
+        $("#ui-datepicker-div").remove('');
+    }
+
+    $('#ApplicationEndDate').datepicker({
+        dateFormat: "mm/dd/yy",
+    });
+
+    $('#ApplicationStartDate').datepicker({
+        dateFormat: "mm/dd/yy",
+        onSelect: function (date) {
+            var date1 = $('#EventStartDate').datepicker('getDate');
+            var date = new Date(Date.parse(date1));
+            var beforeEventStartDate1 = new Date(Date.parse(date1) - 1);
+
+            var date12 = $('#ApplicationStartDate').datepicker('getDate');
+            var date1 = new Date(Date.parse(date12));
+            date1.setDate(date1.getDate());
+            var newDate1 = date1.toDateString();
+            newDate1 = new Date(Date.parse(newDate1));
+            $('#ApplicationEndDate').val('');
+            $('#ApplicationEndDate').datepicker("option", "minDate", newDate1);
+            $('#ApplicationEndDate').datepicker("option", "maxDate", beforeEventStartDate1);
+            $(".ApplicationStartDate").html('');
+            $(".ApplicationEndDate").html('');
+        }
+    });
+
+    $('#EventEndDate').datepicker({
+        dateFormat: "mm/dd/yy",
+        minDate: 0,
+        onSelect: function (date) {
+            var date1 = $('#EventEndDate').datepicker('getDate');
+            var date = new Date(Date.parse(date1));
+            date.setDate(date.getDate());
+            var newDate = date.toDateString();
+            newDate = new Date(Date.parse(newDate));
+            $('#ApplicationStartDate').val("");
+            $(".EventEndDate").html('');
+        }
+    });
+
+    $("#EventStartDate").datepicker({
+        dateFormat: "mm/dd/yy",
+        defaultDate: "+1w",
+        changeMonth: false,
+        changeYear: true,
+        onSelect: function (date) {
+            var date1 = $('#EventStartDate').datepicker('getDate');
+            var date = new Date(Date.parse(date1));
+            date.setDate(date.getDate());
+            var newDate = date.toDateString();
+            newDate = new Date(Date.parse(newDate));
+            var beforeEventStartDate = new Date(Date.parse(date1) - 1);
+            $('#EventEndDate').val("");
+            $('#ApplicationStartDate').val("");
+            $('#EventEndDate').datepicker("option", "minDate", newDate);
+            $('#ApplicationStartDate').datepicker("option", "maxDate", beforeEventStartDate);
+            $(".EventStartDate").html('');
+        }
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#HttpPostedFilBase64').val(e.target.result);
+                var filename = $('#uploadfile').val().replace(/C:\\fakepath\\/i, '')
+                $("#FileName").val(filename);
+                $("#ImagePreview").attr("src", e.target.result);
+                $("#ImagePreview").addClass("img-thumbnail", "");
+                $(".uploadfileerror").html('');
+                $(".ImagePreview").show();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#uploadfile").change(function () {
+        readURL(this);
+        $(".uploadfileerror").html('');
+    });
+
+    uploadfilechange = function () {
+        if ($('#uploadfile').val() != "") {
+            $(".uploadfileerror").html('');
+        }
+        else {
+            $(".uploadfileerror").html('Upload image field is required.');
+        }
+    };
+
+    function readVURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#HttpPostedVFilBase64').val(e.target.result);
+                var filename = $('#uploadvfile').val().replace(/C:\\fakepath\\/i, '');
+                $("#VFileName").val(filename);
+                $(".uploadvfileerror").html('');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#uploadvfile").change(function () {
+        readVURL(this);
+        $(".uploadvfileerror").html('');
+    });
+
+    function readVURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#HttpPostedSFilBase64').val(e.target.result);
+                var filename = $('#uploadsfile').val().replace(/C:\\fakepath\\/i, '');
+                $("#SFileName").val(filename);
+                $(".uploadsfileerror").html('');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#uploadsfile").change(function () {
+        readVURL(this);
+        $(".uploadsfileerror").html('');
+    });
+
+    // RegistrationTab Details Images
+
+    function readDesc1URL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#HttpPostedDesc1FilBase64').val(e.target.result);
+                var filename = $('#uploadfile1').val().replace(/C:\\fakepath\\/i, '')
+                $("#Desc1FileName").val(filename);
+                $("#ImagePreview1Desc").attr("src", e.target.result);
+                $("#ImagePreview1Desc").addClass("img-thumbnail", "");
+                $(".uploadfileerror1").html('');
+                $(".ImagePreview1").show();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#uploadfile1").change(function () {
+        readDesc1URL(this);
+        $(".uploadfileerror1").html('');
+    });
+
+    function readDesc2URL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#HttpPostedDesc2FilBase64').val(e.target.result);
+                var filename = $('#uploadfile2').val().replace(/C:\\fakepath\\/i, '')
+                $("#Desc2FileName").val(filename);
+                $("#ImagePreview2Desc").attr("src", e.target.result);
+                $("#ImagePreview2Desc").addClass("img-thumbnail", "");
+                $(".uploadfileerror2").html('');
+                $(".ImagePreview2").show();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#uploadfile2").change(function () {
+        readDesc2URL(this);
+        $(".uploadfileerror2").html('');
+    });
+
+    function readDesc3URL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#HttpPostedDesc3FilBase64').val(e.target.result);
+                var filename = $('#uploadfile3').val().replace(/C:\\fakepath\\/i, '')
+                $("#Desc3FileName").val(filename);
+                $("#ImagePreview3Desc").attr("src", e.target.result);
+                $("#ImagePreview3Desc").addClass("img-thumbnail", "");
+                $(".uploadfileerror3").html('');
+                $(".ImagePreview3").show();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#uploadfile3").change(function () {
+        readDesc3URL(this);
+        $(".uploadfileerror3").html('');
+    });
+
+    function readDesc4URL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#HttpPostedDesc4FilBase64').val(e.target.result);
+                var filename4 = $('#uploadfile4').val().replace(/C:\\fakepath\\/i, '')
+                $("#Desc4FileName").val(filename4);
+                $("#ImagePreview4Desc").attr("src", e.target.result);
+                $("#ImagePreview4Desc").addClass("img-thumbnail", "");
+                $(".uploadfileerror4").html('');
+                $(".ImagePreview4").show();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#uploadfile4").change(function () {
+        readDesc4URL(this);
+        $(".uploadfileerror4").html('');
+    });
+
+
+
+</script>

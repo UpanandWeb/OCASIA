@@ -1,0 +1,41 @@
+﻿@model OCASIA.Meeting.DAL.RoleCustom
+@{
+    ViewBag.Title = "Manage Roles";
+}
+<div id="AddID">  </div>
+<div id="EditID">   </div>
+<div id="DeleteID">   </div>
+<div class="row" id="mymodal">
+    <div id="UpdateID">
+        @Html.Partial("_BindRoles")
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")    
+    <script type="text/javascript" src="~/assets/data-tables/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="~/assets/data-tables/datatables.min.js"></script>
+    <script type="text/javascript" src="~/assets/data-tables/bootstrap3/dataTables.bootstrap.js"></script>
+    <script type="text/javascript">
+        $('#table1').DataTable({
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1]
+            }]
+        });
+        ModalClose1 = function () {
+            $("#AddID").html('');
+        }
+        ModalClose2 = function () {
+            $("#EditID").html('');
+        }
+
+        ModalClose3 = function () {
+            $("#DeleteID").html('');
+        }
+        
+    </script>
+
+
+}
+
