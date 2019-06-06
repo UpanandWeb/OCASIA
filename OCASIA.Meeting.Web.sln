@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCASIA.Meeting.Web", "OCASIA.Meeting.Web\OCASIA.Meeting.Web.csproj", "{6EEC8C0D-B706-430F-862D-B129E3AE0CC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCASIA.Meeting.DAL", "OCASIA.Meeting.DAL\OCASIA.Meeting.DAL.csproj", "{D83F9D6A-8070-4851-A0FE-6957100E2862}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCASIA.Meeting.Registration", "OCASIA.Meeting.Registration\OCASIA.Meeting.Registration.csproj", "{9A7D9007-9594-4EBB-B751-7234B8E6616B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6EEC8C0D-B706-430F-862D-B129E3AE0CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EEC8C0D-B706-430F-862D-B129E3AE0CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EEC8C0D-B706-430F-862D-B129E3AE0CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EEC8C0D-B706-430F-862D-B129E3AE0CC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D83F9D6A-8070-4851-A0FE-6957100E2862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D83F9D6A-8070-4851-A0FE-6957100E2862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D83F9D6A-8070-4851-A0FE-6957100E2862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D83F9D6A-8070-4851-A0FE-6957100E2862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A7D9007-9594-4EBB-B751-7234B8E6616B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A7D9007-9594-4EBB-B751-7234B8E6616B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A7D9007-9594-4EBB-B751-7234B8E6616B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A7D9007-9594-4EBB-B751-7234B8E6616B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9DD3E434-E7C5-4266-A913-1C19E64D7363}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://192.168.1.10:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = OCASIA.Meeting.DAL\\OCASIA.Meeting.DAL.csproj
+		SccProjectName1 = OCASIA.Meeting.DAL
+		SccLocalPath1 = OCASIA.Meeting.DAL
+		SccProjectUniqueName2 = OCASIA.Meeting.Registration\\OCASIA.Meeting.Registration.csproj
+		SccProjectName2 = OCASIA.Meeting.Registration
+		SccLocalPath2 = OCASIA.Meeting.Registration
+		SccProjectUniqueName3 = OCASIA.Meeting.Web\\OCASIA.Meeting.Web.csproj
+		SccProjectName3 = OCASIA.Meeting.Web
+		SccLocalPath3 = OCASIA.Meeting.Web
+	EndGlobalSection
+EndGlobal
