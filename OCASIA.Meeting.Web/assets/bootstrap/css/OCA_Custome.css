@@ -1,0 +1,21 @@
+﻿.modal-add {
+       overflow: scroll;
+    margin: 5px 0;
+    bottom: 6px;
+    max-height: 600px;
+   
+}
+.modal-add-height {
+    overflow: scroll;
+    margin: 5px 0;
+    bottom: 6px;
+    height: 520px;
+   
+}
+.model-inner-table{
+    height: 300px;
+    overflow-y: scroll;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
